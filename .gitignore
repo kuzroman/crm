@@ -15,6 +15,10 @@
 
 # Thumbnails
 ._*
+.idea
+access.log
+error.log
+laravel/public/bower_components
 
 # Files that might appear on external disk
 .Spotlight-V100

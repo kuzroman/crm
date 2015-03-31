@@ -1,0 +1,22 @@
+{
+  "name": "crm",
+  "version": "0.0.0",
+
+"dependencies": {
+    "backbone": "*"
+    ,"jquery": "*"
+},
+
+  "authors": [
+    "kuzroman <kuzroman@list.ru>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

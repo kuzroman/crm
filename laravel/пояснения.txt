@@ -1,0 +1,90 @@
+==========================================================
+создание миграций и таблиц БД
+
+добавляются новые миграции через консоль - php artisan make:migration create_posts_table
+появляются здесь - app/database/migrations
+в миграциях создастся файл, переходим в него и редактируем, создаем шаблон таблицы.
+
+чтобы создать таблицу в mysql вводим в консоли - php artisan migrate
+консоль спросит подтверждения, пишем - yes
+
+для удаления таблицы мы инициализируем метод down('table')
+и в консоли - php artisan migrate:rollback  ... yes
+
+==========================================================
+
+javascript - загрузим необходимые библиотеки и фреймворки
+создадим модель с дефолтными данными, создадим вид (можно сразу с валидацией),
+создадим page.js для создания экземпляров.
+
+==========================================================
+
+Добавление роутов - app/routes.php
+Добавление контроллеров - app/controllers
+Добавление вида - app/view
+В view можно так же создать папку template для небольших шаблонов
+
+==========================================================
+Seeding
+
+установим faker с помощью composer добавив в вайле composer.json строку "fzaninotto/faker": "1.*" в объект require
+обновить в консоли - composer update
+Создадим еще одну модель Posts.php, пока пустую (или такую class Post extends Eloquent {} )
+в папке app/database/seeds добавим файл PostsSeeder.php - т.к. posts наша таблица - наполним ее фейковыми данными
+в файле app/database/seeds/DatabaseSeeder.php - объявим новый seder - PostsSeeder
+и в консоли объявим его - php artisan db:seed или запустить: composer dump-autoload
+
+Откат всех миграций и их повторное применение php artisan migrate:refresh --seed
+
+=======$faker===================================================
+Вывод информации из базы.
+
+создатим статический метод getAll() в модели Post.php
+в контроллере HomeController.php добавим ->with('posts', $posts); - он будет принимать метод posts и передавать его в вид
+опишем вид home.blade.php
+
+======= Команды =========================================================
+php artisan make:controller PhotoController - создать контроллер
+php artisan make:model User - создать модель
+
+Если по какой-то причине нужно отменить последнюю миграцию, выполняем
+php artisan migrate:rollback.
+откатить и накатить вновь - php artisan migrate:refresh --seed
+отменить миграции - migrate:reset
+
+==== Проблемы с которыми столкнулся ============================================================
+
+при изменении данынх на сервере вылетала ошибка TokenMismatchException in VerifyCsrfToken.php line 46:
+нужно передавать токен например так:
+<input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+---------------------
+
+Во время удаления требовался токен, но метод destroy не передавал никаких данных на сервер
+передать так
+this.model.destroy({
+    data: { _token: settings._token }, processData: true,  // эта строка передает данные на сервер (тип данных Form Data)
+    wait:true, dataType:"text"
+    ,success : function() { self.remove() }
+    ,error: function () {}
+});
+
+или так
+this.model.destroy({
+
+    data: JSON.stringify( { _token: settings._token } ), // 2 строки передают данные на сервер
+    contentType: 'application/json',                     // (тип данных Request Payload)
+
+    wait:true, dataType:"text"
+    ,success : function() { self.remove() }
+    ,error: function () {}
+});
+
+---------------------
+
+Если мы ничего не получаем от сервера, однако ходим обрабатывать в backbone callback от сервера нужно добавить dataType:"text"
+Чтобы backbone добавил новую модель в коллекцию нужно от сервера получить id (dataType:"text" нужно убрать)
+
+add & destroy срабатывают после получения ответа от сервера
+change - перед
+

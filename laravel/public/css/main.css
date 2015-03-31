@@ -1,0 +1,317 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.authorisation {
+  float: right;
+}
+
+.main_title {
+  margin-bottom: 20px;
+  float: left;
+}
+
+/*=============================
+Общие */
+.center {
+  width: 980px;
+  margin: 0 auto;
+}
+
+.close {
+  border-radius: 100%;
+  border: 1px solid #777;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 18px;
+  font-size: 18px;
+  overflow: hidden;
+  background: #777;
+  color: #D2D2D2;
+  cursor: pointer;
+}
+
+/*=============================
+таблицы silver */
+.silver > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.silver li {
+  height: 20px;
+  display: inline-block;
+  margin-left: 1px;
+  padding: 4px 5px;
+  overflow: hidden;
+  list-style-type: none;
+}
+
+.silver li:first-child {
+  margin-left: 0;
+}
+
+.silver ul:nth-child(2n) > li {
+  background: #c2c2c2;
+}
+
+.silver ul:nth-child(odd) > li {
+  background: #dcdcdc;
+}
+
+.silver ul:hover > li {
+  background: #B6C4D2;
+  color: #292929;
+}
+
+.silver ul > li:hover {
+  background: #9A9EB3;
+  color: #fff;
+}
+
+.silver ul.head li {
+  background: #777;
+  color: white;
+}
+
+/* end таблицы silver
+=============================*/
+
+/*=============================
+Заказы */
+
+#ordersBox {
+  text-align: left;
+}
+
+/* проценты заданы относительно ширины строки 980px */
+#ordersBox .num {
+  width: 3%;
+  text-align: right;
+}
+
+#ordersBox .date {
+  width: 8%;
+}
+
+#ordersBox .buyer {
+  width: 15%;
+}
+
+#ordersBox .desc {
+  width: 15%;
+}
+
+#ordersBox .cash {
+  width: 5%;
+}
+
+#ordersBox .price {
+  width: 7%;
+}
+
+#ordersBox .paid {
+  width: 9%;
+}
+
+#ordersBox .completed {
+  width: 8%;
+}
+
+#ordersBox .finished {
+  width: 7%;
+}
+
+#ordersBox .btn {
+  width: 8%;
+  background: #D8D8D8;
+  color: #DB1C1C;
+}
+
+#ordersBox .btn > span {
+  border-bottom: 1px dotted;
+  cursor: pointer;
+}
+
+#ordersBox .btn:hover > span {
+  color: #c00;
+}
+
+/*-----------------------
+view - OrderEditor */
+#editorBox {
+  position: absolute;
+  background: #fff;
+}
+
+.orderEditor {
+  width: 295px;
+  float: left;
+  background: #dadada;
+  padding: 10px;
+  border: 2px solid #999;
+}
+
+.orderEditor input {
+  padding: 2px
+}
+
+.orderEditor [name="desc"],
+.orderEditor [name="buyer"] {
+  width: 200px;
+  height: 50px;
+  resize: none;
+}
+
+.orderEditor [type="ui_date"] {
+  width: 75px;
+  text-align: right;
+}
+
+.orderEditor [name="price"] {
+  width: 75px;
+  text-align: right;
+}
+
+.orderEditor .close {
+  position: relative;
+  right: -11px;
+  top: -8px;
+  float: right;
+}
+
+.orderEditor td {
+  position: relative;
+}
+
+/*-----------------------
+покупатели buyers */
+
+.buyers {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.buyers .close {
+  position: absolute;
+  right: 47px;
+  top: 5px;
+  background: #fff;
+}
+
+/* проценты заданы относительно ширины строки 980px */
+.buyers .num {
+  width: 3%;
+  text-align: right;
+}
+.buyers .name {
+  width: 30%;
+}
+.buyers .kind {
+  width: 10%;
+}
+.buyers .email {
+  width: 35%;
+}
+.buyers .add {
+  width: 10%;
+  cursor: pointer;
+}
+
+.per3 {width: 3%}
+.per10 {width: 10%}
+.per15 {width: 15%}
+.per20 {width: 20%}
+.per30 {width: 30%}
+.per40 {width: 40%}
+.per50 {width: 50%}
+
+.buyers .btn {
+  width: 10%;
+  cursor: pointer;
+}
+
+.vBuyerEditor {
+  width: 767px;
+  position: absolute;
+  background: #E0EAE3;
+  padding-left: 40px;
+}
+.vBuyerEditor .close {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+.vBuyerEditor input {
+  width: 734px;
+  padding: 2px 4px;
+}
+.vBuyerEditor select {
+  padding: 2px;
+}
+.vBuyerEditor ul {
+  margin: 10px 0;
+  padding: 0;
+}
+.vBuyerEditor li {
+  margin: 8px 0;
+}
+
+.validator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #FFF;
+  padding: 4px 10px;
+  border: 1px solid #c0c0c0;
+  color: #555
+}
+
+.validator:before {
+  content: '';
+  display: block;
+  width: 17px;
+  height: 16px;
+  background: #fff;
+  position: absolute;
+  transform: rotate(45deg);
+  left: -9px;
+}
+
+.error.validator:before {
+  background: #FFE9E9;
+}
+
+.validator.error {
+  background: #FFE9E9;
+}
+/**********************************/
+.kindBuyer {
+  width: 370px;
+  margin: 0 auto;
+  border: 1px solid;
+  padding: 10px;
+}
+.kindBuyer input {
+  width: 170px;
+}
+.addKindBuyer {
+  padding: 10px 0;
+}
+.vKindBuyer {
+  overflow: hidden;
+  padding: 5px 0;
+}
+.vKindBuyers button {
+  float:right;
+}
+.hide {
+  display: none;
+}
