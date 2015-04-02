@@ -69,7 +69,7 @@ App.Views.Buyers = Backbone.View.extend({
 
 App.Views.BuyerEditor = Backbone.View.extend({
     tagName: 'form'
-    ,className: 'vBuyerEditor'
+    ,className: 'vBuyerEditor editor'
     ,template: hp.tmpl('tmplBuyerEdit')
 
     ,events: {

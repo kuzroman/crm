@@ -7,7 +7,7 @@ App.Models.Buyer = Backbone.Model.extend({
         // при вызове метода save. Id должен добавляться SQL автоматически.
         name: ''
         ,id_kind: ''
-        ,email: ''
+        ,about: ''
         ,kindName: ''
         ,edit: true // если тру появится кнопка редактировать
         ,_token: hp.getToken()

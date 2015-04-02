@@ -82,6 +82,15 @@ this.model.destroy({
 
 ---------------------
 
+после переноса на другой компьютор с помощью git не создавались миграции
+Проверить нет ли миграций с одинаковыми названиями - иногда появляются
+далее выполнить php artisan migrate:install создасться бд migration
+composer dump-autoload просто так надо
+далее накатить миграции php artisan migrate если их небыло
+или  php artisan migrate:refresh --seed
+php artisan db:seed
+---------------------
+
 Если мы ничего не получаем от сервера, однако ходим обрабатывать в backbone callback от сервера нужно добавить dataType:"text"
 Чтобы backbone добавил новую модель в коллекцию нужно от сервера получить id (dataType:"text" нужно убрать)
 

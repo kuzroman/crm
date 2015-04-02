@@ -4,7 +4,11 @@ App.Models.Contact = Backbone.Model.extend({
     ,defaults: {
         //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)
         // при вызове метода save. Id должен добавляться SQL автоматически.
-        kind: ''
+        name: ''
+        ,cell_1: ''
+        ,cell_2: ''
+        ,email: ''
+
         ,edit: true
         ,_token: hp.getToken()
     }

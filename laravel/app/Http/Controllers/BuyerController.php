@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Buyer;
 use App\Models\KindBuyer;
+use App\Models\Contact;
 
 
 class BuyerController extends Controller {
@@ -18,11 +19,12 @@ class BuyerController extends Controller {
 	{
 
         $kindBuyer = KindBuyer::all();
+        $contact = Contact::all();
         //return view('kindBuyer', ['kind_buyer' => $kindBuyer] );
 
 //        $buyers = Buyer::all();
         $buyers = Buyer::getAll(); // используем свой метод с доп данными из таблицы kindBuyer
-        return view('pBuyer', ['buyers' => $buyers, 'kind_buyer' => $kindBuyer] );
+        return view('pBuyer', ['buyers' => $buyers, 'kind_buyer' => $kindBuyer, 'contact' => $contact] );
 
 //        return view('home');
 	}
@@ -37,7 +39,7 @@ class BuyerController extends Controller {
         $model = new Buyer;
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
-        $model->email = $request->input('email');
+        $model->about = $request->input('about');
 
         $model->save();
 
@@ -87,8 +89,9 @@ class BuyerController extends Controller {
         $model = Buyer::find($id);
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
-        $model->email = $request->input('email');
+        $model->about = $request->input('about');
         $model->save();
+        return json_encode($model);
 	}
 
 	/**

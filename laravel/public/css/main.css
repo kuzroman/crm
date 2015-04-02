@@ -238,29 +238,30 @@ view - OrderEditor */
   cursor: pointer;
 }
 
-.vBuyerEditor {
+.editor {
   width: 767px;
   position: absolute;
   background: #E0EAE3;
   padding-left: 40px;
 }
-.vBuyerEditor .close {
+.editor .close {
   position: absolute;
   right: 8px;
   top: 8px;
 }
-.vBuyerEditor input {
-  width: 734px;
+.editor input {
+  /*width: 734px;*/
+  width: 500px;
   padding: 2px 4px;
 }
-.vBuyerEditor select {
+.editor select {
   padding: 2px;
 }
-.vBuyerEditor ul {
+.editor ul {
   margin: 10px 0;
   padding: 0;
 }
-.vBuyerEditor li {
+.editor li {
   margin: 8px 0;
 }
 

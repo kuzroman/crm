@@ -59,7 +59,7 @@ App.Views.Contacts = Backbone.View.extend({
 
 App.Views.ContactEditor = Backbone.View.extend({
     tagName: 'form'
-    ,className: 'vContactEditor'
+    ,className: 'vContactEditor editor'
     ,template: hp.tmpl('tmplContactEdit')
 
     ,events: {

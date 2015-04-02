@@ -7,7 +7,7 @@ class Buyer extends Model {
 
     // Указание доступных к заполнению атрибутов
     // так как изначально все модели Eloquent защищены от массового заполнения.
-    protected $fillable = ['name', 'id_kind', 'email'];
+    protected $fillable = ['name', 'id_kind', 'about'];
 
     public static $unguarded = true; // laravel не нравится что мы напрямую добавляем данные.
 
@@ -15,7 +15,10 @@ class Buyer extends Model {
     public static function getAll() {
 //        $orders = Order::all();
 
-        $orders = DB::select('select b.*, kb.kind as kindName from buyers b INNER JOIN kind_buyers kb ON b.id_kind = kb.id ORDER BY id');
+//            con.name as contName, con.cell_1 as cell_1, con.cell_2 as cell_2, con.emails as email1
+
+        $orders = DB::select('select b.*, kb.kind as kindName
+            from buyers b INNER JOIN kind_buyers kb ON b.id_kind = kb.id ORDER BY id');
 //        $orders = DB::select('select * from buyers ');
         //print_r($orders);
 

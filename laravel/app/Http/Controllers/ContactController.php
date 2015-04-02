@@ -25,10 +25,18 @@ class ContactController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-		//
-	}
+    public function create(Request $request)
+    {
+        $model = new Contact;
+        $model->name = $request->input('name');
+        $model->cell_1 = $request->input('cell_1');
+        $model->cell_2 = $request->input('cell_2');
+        $model->email = $request->input('email');
+
+        $model->save();
+
+        return json_encode($model);
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -68,10 +76,16 @@ class ContactController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-		//
-	}
+    public function update(Request $request, $id)
+    {
+        $model = Contact::find($id);
+        $model->name = $request->input('name');
+        $model->cell_1 = $request->input('cell_1');
+        $model->cell_2 = $request->input('cell_2');
+        $model->email = $request->input('email');
+        $model->save();
+        //return json_encode($model);
+    }
 
 	/**
 	 * Remove the specified resource from storage.
@@ -81,7 +95,7 @@ class ContactController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        Contact::destroy($id);
 	}
 
 }

@@ -6,7 +6,7 @@
 @section('content') {{-- здесь можно разместить контент --}}
 
     {{--buyer зависит от kindBuyer--}}
-    @include('kindBuyer')
-    @include('buyer')
+    @include('--kindBuyer')
+    @include('--buyer')
 
 @stop

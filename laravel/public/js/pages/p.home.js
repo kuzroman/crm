@@ -9,7 +9,7 @@ home = {
   ordersJSON: ordersJSON // ordersJSON from app\views\template\order.blade.php
   , cOrders: null
 
-  //,buyersJSON: buyersJSON // buyersJSON from app\views\template\buyer.blade.php
+  //,buyersJSON: buyersJSON // buyersJSON from app\views\template\--buyer.blade.php
   , cBuyers: null
 };
 
