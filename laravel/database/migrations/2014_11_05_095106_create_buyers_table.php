@@ -18,8 +18,13 @@ class CreateBuyersTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->integer('id_kind');
-            $table->string('id_contact');
             $table->string('about');
+
+            $table->string('contact');
+            $table->string('cell_1');
+            $table->string('cell_2');
+            $table->string('email');
+
             $table->timestamps(); // вроде как обязательное поле для всех миграций!
         });
 	}

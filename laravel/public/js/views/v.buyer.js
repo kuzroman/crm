@@ -1,6 +1,6 @@
 // вид одного
 App.Views.Buyer = Backbone.View.extend({
-    tagName: 'ul'
+    tagName: 'tr'
     ,className: 'vBuyer'
     ,template: hp.tmpl('tmplBuyer')
 
@@ -8,6 +8,9 @@ App.Views.Buyer = Backbone.View.extend({
         'click .jEdit': function () {
             vent.trigger('drawBuyerEditor', {view:this, model:this.model} );
         }
+        //,'click .jClickContName': function () {
+        //    vent.trigger('onClickContName', {view:this, model:this.model} );
+        //}
     }
     ,initialize: function () {
         this.model.on('sync', this.render, this); // сработает после измения модели на сервере
@@ -30,15 +33,11 @@ App.Views.Buyer = Backbone.View.extend({
     ,remove: function () {
         this.$el.remove();
     }
-    //,onSync:function () {
-    //    this.render();
-    //    vent.trigger('changeKindBuyer', this);
-    //}
 });
 
 // список
 App.Views.Buyers = Backbone.View.extend({
-    tagName: 'div'
+    tagName: 'table'
     ,className: 'vBuyers'
     ,template: hp.tmpl('tmplBuyers')
 

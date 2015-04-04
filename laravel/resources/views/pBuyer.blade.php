@@ -8,54 +8,127 @@
     <div id="buyersBox"></div>
 
     <script type="text/template" id="tmplBuyers">
-        <div class="buyers silver">
-            <ul class="head">
-                <li class="num">#
-                <li class="name">Название
-                <li class="kind">Вид
-                <li class="email">Описание
-                <li class="add"><div class="jAdd">Добавить</div>
-            </ul>
-        </div>
-        <div class="buyers silver" id="buyersList"></div>
+        <thead class="buyers silver">
+            <tr class="head">
+                <td class="per3">#</td>
+                <td class="">Название</td>
+                <td class="">Вид</td>
+                <td class="">Описание</td>
+                <td class="">Контакт</td>
+                <td class="">Телефон 1</td>
+                <td class="">Телефон 2</td>
+                <td class="">Email</td>
+                <td class=" btn"><div class="jAdd">Добавить</div></td>
+            </tr>
+        </thead>
+        <tbody class="buyers silver" id="buyersList"></tbody>
     </script>
 
     <script type="text/template" id="tmplBuyer">
-        <li class="num"><%=id%>
-        <li class="name"><%=name%>
-        <li class="kind"><%=kindName%>
-        <li class="email"><%=about%>
+        <td class=""><%=id%></td>
+        <td class=""><%=name%></td>
+        <td class=""><%=kindName%></td>
+        <td class=""><%=about%></td>
+        <td class=""><%=contact%></td>
+        <td class=""><%=cell_1%></td>
+        <td class=""><%=cell_2%></td>
+        <td class=""><%=email%></td>
         <% if (edit) { %>
-            <li class="btn jEdit">Редакция
+            <td class="btn jEdit">Редакция</td>
         <% } %>
     </script>
 
     <script type="text/template" id="tmplBuyerEdit">
         <div class="jClose close">X</div>
-        <ul>
-            <li><input name="name" value="<%=name%>"/>
-            <li>
-            <select name="id_kind">
-                <% _.each(settings.cKindBuyers, function(x,index) {
-                        var model = settings.cKindBuyers.at(index)
-                            ,kind = model.get('kind')
-                            ,id = model.get('id');
 
-                        var selected = (id_kind == id) ? 'selected' : '';
-                %>
-                 <option <%=selected%> value="<%=id%>"><%=kind%></option>
-                <% }); %>
-            </select>
-            <li><input name="about" value="<%=about%>">
-            {{--<li><input type="button">--}}
-            <li>
-                <%  if (name == '') { %>
+        {{--<table>--}}
+            {{--<tr>--}}
+                {{--<td><input name="name" value="<%=name%>"/></td>--}}
+                {{--<td>--}}
+                    {{--<select name="id_kind">--}}
+                        {{--<% _.each(settings.cKindBuyers, function(x,index) {--}}
+                                {{--var model = settings.cKindBuyers.at(index)--}}
+                                    {{--,kind = model.get('kind')--}}
+                                    {{--,id = model.get('id');--}}
+
+                                {{--var selected = (id_kind == id) ? 'selected' : '';--}}
+                        {{--%>--}}
+                         {{--<option <%=selected%> value="<%=id%>"><%=kind%></option>--}}
+                        {{--<% }); %>--}}
+                    {{--</select>--}}
+                {{--</td>--}}
+                {{--<td><input name="about" value="<%=about%>"></td>--}}
+                {{--<td><input name="contact" value="<%=contact%>"></td>--}}
+                {{--<td><input name="cell_1" value="<%=cell_1%>"></td>--}}
+                {{--<td><input name="cell_2" value="<%=cell_2%>"></td>--}}
+                {{--<td><input name="email" value="<%=email%>"></td>--}}
+                {{--<%  if (name == '') { %>--}}
+                    {{--<td><button class="jAdd">Добавить</button></td>--}}
+                {{--<% } else { %>--}}
+                    {{--<td><button class="jChange mr18">Изменить</button></td>--}}
+                    {{--<td><button class="jDel">Удалить</button></td>--}}
+                {{--<% } %>--}}
+            {{--</tr>--}}
+        {{--</table>--}}
+
+
+        <table>
+            <tr>
+                <td>Название</td>
+                <td><input name="name" value="<%=name%>"/></td>
+            </tr>
+            <tr>
+                <td>Вид</td>
+                <td>
+                    <select name="id_kind">
+                        <% _.each(settings.cKindBuyers, function(x,index) {
+                                var model = settings.cKindBuyers.at(index)
+                                    ,kind = model.get('kind')
+                                    ,id = model.get('id');
+
+                                var selected = (id_kind == id) ? 'selected' : '';
+                        %>
+                         <option <%=selected%> value="<%=id%>"><%=kind%></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Описание</td>
+                <td><textarea name="about"><%=about%></textarea></td>
+            </tr>
+            <tr>
+                <td>Контакт</td>
+                <td><input name="contact" value="<%=contact%>"></td>
+            </tr>
+            <tr>
+                <td>Телефон 1</td>
+                <td><input name="cell_1" value="<%=cell_1%>"></td>
+            </tr>
+            <tr>
+                <td>Телефон 2</td>
+                <td><input name="cell_2" value="<%=cell_2%>"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input name="email" value="<%=email%>"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="pt9">
+                 <%  if (name == '') { %>
                     <button class="jAdd">Добавить</button>
                 <% } else { %>
                     <button class="jChange mr18">Изменить</button>
                     <button class="jDel">Удалить</button>
                 <% } %>
-        </ul>
+                </td>
+            </tr>
+
+
+
+
+        </table>
     </script>
 
 

@@ -8,7 +8,12 @@ App.Models.Buyer = Backbone.Model.extend({
         name: ''
         ,id_kind: ''
         ,about: ''
-        ,kindName: ''
+        ,contact: ''
+        ,cell_1: ''
+        ,cell_2: ''
+        ,email: ''
+        ,kindName: '' // данные из др табл
+
         ,edit: true // если тру появится кнопка редактировать
         ,_token: hp.getToken()
     }

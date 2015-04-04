@@ -19,14 +19,15 @@ class BuyerController extends Controller {
 	{
 
         $kindBuyer = KindBuyer::all();
-        $contact = Contact::all();
+//        $contact = Contact::all();
         //return view('kindBuyer', ['kind_buyer' => $kindBuyer] );
 
 //        $buyers = Buyer::all();
         $buyers = Buyer::getAll(); // используем свой метод с доп данными из таблицы kindBuyer
-        return view('pBuyer', ['buyers' => $buyers, 'kind_buyer' => $kindBuyer, 'contact' => $contact] );
+        //return $buyers;
+        return view('pBuyer', ['buyers' => $buyers, 'kind_buyer' => $kindBuyer] );
 
-//        return view('home');
+        //return view('home');
 	}
 
 	/**
@@ -40,6 +41,10 @@ class BuyerController extends Controller {
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
         $model->about = $request->input('about');
+        $model->contact = $request->input('contact');
+        $model->cell_1 = $request->input('cell_1');
+        $model->cell_2 = $request->input('cell_2');
+        $model->email = $request->input('email');
 
         $model->save();
 
@@ -90,6 +95,10 @@ class BuyerController extends Controller {
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
         $model->about = $request->input('about');
+        $model->contact = $request->input('contact');
+        $model->cell_1 = $request->input('cell_1');
+        $model->cell_2 = $request->input('cell_2');
+        $model->email = $request->input('email');
         $model->save();
         return json_encode($model);
 	}

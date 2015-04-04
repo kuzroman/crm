@@ -22,8 +22,11 @@ class BuyersSeeder extends Seeder {
             Buyer::create([
                 'name' => $faker->company,
                 'id_kind' => 1, //$faker->numberBetween($min = 1, $max = 2),
-                'id_contact' => 1,
-                'about' => $faker->text(100)
+                'about' => $faker->text(100),
+                'contact' => $faker->name,
+                'cell_1' => $faker->phoneNumber,
+                'cell_2' => $faker->phoneNumber,
+                'email' => $faker->email,
             ]);
         }
     }

@@ -48,8 +48,8 @@ pBuyer.drawBuyerEditor = function (view, model) {
     var innerModel = model ? model : new App.Models.Buyer;
     var vBuyerEditor = new App.Views.BuyerEditor({model: innerModel});
 
-    var top = view ? view.$el.offset().top + view.$el.height() : $('.vBuyers > div').offset().top + 29;
-    var left = view ? view.$el.offset().left : $('.vBuyers > div').offset().left;
+    var top = view ? view.$el.offset().top + view.$el.height() : $('.vBuyers').offset().top + 29;
+    var left = view ? view.$el.offset().left : $('.vBuyers').offset().left;
     vBuyerEditor.$el.css({top:top, left:left});
 
     if (pBuyer.html.vEditBuyer) pBuyer.html.vEditBuyer.remove();

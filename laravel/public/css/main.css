@@ -40,45 +40,55 @@ ul {
 
 /*=============================
 таблицы silver */
-.silver > ul {
+.silver > tr {
   padding: 0;
   margin: 0;
 }
 
-.silver li {
+.silver td {
   height: 20px;
-  display: inline-block;
-  margin-left: 1px;
+  /*display: inline-block;*/
+  /*margin-left: 1px;*/
   padding: 4px 5px;
-  overflow: hidden;
-  list-style-type: none;
+  /*overflow: hidden;*/
+  /*list-style-type: none;*/
 }
 
-.silver li:first-child {
-  margin-left: 0;
+.silver td:first-child {
+  /*margin-left: 0;*/
 }
 
-.silver ul:nth-child(2n) > li {
+.silver tr:nth-child(2n) > td {
   background: #c2c2c2;
 }
 
-.silver ul:nth-child(odd) > li {
+.silver tr:nth-child(odd) > td {
   background: #dcdcdc;
 }
 
-.silver ul:hover > li {
+.silver tr:hover > td {
   background: #B6C4D2;
   color: #292929;
 }
 
-.silver ul > li:hover {
+.silver tr > td:hover {
   background: #9A9EB3;
   color: #fff;
 }
 
-.silver ul.head li {
+.silver tr.head td {
   background: #777;
   color: white;
+}
+
+.silver tr > td.selected {
+  background: #A7C3FF;
+}
+.silver .selected a {
+  color: #fff;
+}
+.silver a {
+  color: #000;
 }
 
 /* end таблицы silver
@@ -206,43 +216,29 @@ view - OrderEditor */
   background: #fff;
 }
 
-/* проценты заданы относительно ширины строки 980px */
-.buyers .num {
-  width: 3%;
-  text-align: right;
-}
-.buyers .name {
-  width: 30%;
-}
-.buyers .kind {
-  width: 10%;
-}
-.buyers .email {
-  width: 35%;
-}
-.buyers .add {
-  width: 10%;
+
+.buyers .btn {
+  /*width: 10%;*/
   cursor: pointer;
 }
 
 .per3 {width: 3%}
+.per5 {width: 5%}
 .per10 {width: 10%}
 .per15 {width: 15%}
 .per20 {width: 20%}
 .per30 {width: 30%}
+.per35 {width: 35%}
 .per40 {width: 40%}
 .per50 {width: 50%}
 
-.buyers .btn {
-  width: 10%;
-  cursor: pointer;
-}
+
 
 .editor {
   width: 767px;
   position: absolute;
   background: #E0EAE3;
-  padding-left: 40px;
+  padding: 20px;
 }
 .editor .close {
   position: absolute;
@@ -252,6 +248,11 @@ view - OrderEditor */
 .editor input {
   /*width: 734px;*/
   width: 500px;
+  padding: 2px 4px;
+}
+.editor textarea {
+  width: 500px;
+  height: 50px;
   padding: 2px 4px;
 }
 .editor select {
