@@ -18,6 +18,8 @@
 
     <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
     <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+    {{--sugarjs bower не нашел--}}
+    <script type="text/javascript" src="js/lib/sugar.js" language="javascript"></script>
 
     <script type="text/javascript" src="js/helpers.js" language="javascript"></script>
     <script type="text/javascript" src="js/core.js" language="javascript"></script>

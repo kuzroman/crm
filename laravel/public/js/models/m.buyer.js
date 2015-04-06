@@ -34,16 +34,15 @@ App.Models.Buyer = Backbone.Model.extend({
     }
 
     ,setKindName: function () {
-        var id_kind = this.get('id_kind')
-            ,mKindBuyer = settings.cKindBuyers.get(id_kind)
-            ,kind = mKindBuyer.get('kind');
-        this.set('kindName', kind);
+        var id = this.get('id_kind')
+            ,mKindBuyer = settings.cKindBuyers.get(id)
+            ,model = mKindBuyer.get('name');
+        this.set('kindName', model);
     }
 
     ,changeKind: function (mKindBuyer) {
-        //console.log('changeKindBuyer', this.get('kind'), mKindBuyer );
         if (this.get('id_kind') == mKindBuyer.id ) {
-            this.set('kindName', mKindBuyer.get('kind') )
+            this.set('kindName', mKindBuyer.get('name') )
         }
     }
 
@@ -52,7 +51,9 @@ App.Models.Buyer = Backbone.Model.extend({
     }
 
     ,validate: function (attrs, options) {
-
+        if (!$.trim(attrs.name) ) {
+            return "Передано пустое значение";
+        }
     }
 
 });

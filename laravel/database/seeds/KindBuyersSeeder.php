@@ -25,7 +25,7 @@ class KindBuyersSeeder extends Seeder {
 
 
             KindBuyer::create([
-                'kind' => $list[$i]
+                'name' => $list[$i]
             ]);
         }
     }

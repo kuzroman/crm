@@ -38,6 +38,7 @@ class BuyerController extends Controller {
 	public function create(Request $request)
 	{
         $model = new Buyer;
+
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
         $model->about = $request->input('about');
@@ -92,6 +93,7 @@ class BuyerController extends Controller {
 	public function update(Request $request, $id)
 	{
         $model = Buyer::find($id);
+
         $model->name = $request->input('name');
         $model->id_kind = $request->input('id_kind');
         $model->about = $request->input('about');
@@ -99,7 +101,9 @@ class BuyerController extends Controller {
         $model->cell_1 = $request->input('cell_1');
         $model->cell_2 = $request->input('cell_2');
         $model->email = $request->input('email');
+
         $model->save();
+
         return json_encode($model);
 	}
 

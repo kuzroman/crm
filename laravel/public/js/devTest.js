@@ -1,7 +1,7 @@
 test = {
     init: {
         show: 0
-        ,model: 0
+        ,model: 1
         ,view: 1
         ,controller: 1
     }

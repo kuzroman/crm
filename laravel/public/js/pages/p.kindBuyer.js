@@ -19,23 +19,23 @@ pKindBuyer.init = function () {
 
     // в коллекцию обычно передается массив данных с сервера
     //this.cKindBuyers = new App.Collections.KindBuyers(settings.kindBuyerJSON);
-    var viewKindBuyers = new App.Views.KindBuyers({collection: settings.cKindBuyers});
+    var vList = new App.Views.KindBuyers({collection: settings.cKindBuyers});
 
     // в роутах есть тригеры событий => подписка на них должна быть оформлена до их вызова.
     //this.startRouts(); // с этого момента срабатывают события в роутах!
 
     // отрисовку делать в конце, когда все экземпляры инициализированы
-    this.html.list.html(viewKindBuyers.render().el);
+    this.html.list.html(vList.render().el);
 
 };
 
 pKindBuyer.html = {
     init: function () {
         this.body = $('body');
-        this.list = $('#kindBuyersBox'); // список вида покупателей
+        this.list = $('#kindBuyersBox'); // список
     }
 
-    ,vEditBuyer: null
+    //,vEdit: null
 };
 
 pKindBuyer.event = function () {

@@ -1,37 +1,28 @@
 App.Collections.Orders = Backbone.Collection.extend({
-    model: App.Models.Order // дефолтные данные, если не будут переданы новые данные
-    ,url: '/order'
-    
+    model: App.Models.Order // дефолтные данные, елси не будут переданы новые данные
+
     ,initialize: function () {
-        var self = this;
+//        this.on('sync', function (cBuyers, objList) { console.log('sync', cBuyers, objList ) }); // сработает после fetch
 
-        // попробовать вынести - это в page!
-        // отправка данных на сервер
-        vent.on('vOderEdit:addModel', function(OrderAdder) {
-            //console.log(OrderAdder.model);
-            self.create(OrderAdder.model, { wait: true });
-        });
+        this.on('add', this.onModelAdd, this);
 
-        // данные пришли с сервера говорим что можем их отрисовать
-        this.on('sync', function (mOrder, dataOrder) {
-            //console.log('sync', mOrder, dataOrder);
-            vent.trigger('cOrder:drawView', mOrder);
-        });
+        //this.on('all', this.onError, this);
+        //this.on('remove', this.onModelRemoved, this);
+    }
+
+    //,onError: function () {
+    //    console.log(arguments);
+    //    //alert ('Нет соединения с сетью, попробуйте позже.');
+    //}
+
+    ,onModelAdd: function (model, collection, options) {
 
     }
 
-    ,resetEditing: function (el) {
-
-//        for (var num in this.models) {
-//            // находим текущую редактируемую модель
-//            if (this.models[num]['changed']['editing']) {
-//                // меняем свойство
-//                this.models[num].set('editing', false);
-//                // должны изменить вид у найденной модели
-//                console.log(this, this.models[num], el);
-//            }
-//        }
+    ,onModelRemoved: function (model, collection, options) {
+        //console.log("removeed, options:", arguments);
 
     }
+
 
 });

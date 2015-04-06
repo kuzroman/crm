@@ -1,127 +1,132 @@
-// вид одного заказа
+// вид одного
 App.Views.Order = Backbone.View.extend({
-    tagName: 'ul'
+    tagName: 'tr'
     ,className: 'vOrder'
     ,template: hp.tmpl('tmplOrder')
 
     ,events: {
-        'click .jEdit': 'clickEdit'
+        'click .jEdit': function () {
+            vent.trigger('drawOrderEditor', {view:this, model:this.model} );
+        }
+        //,'click .jClickContName': function () {
+        //    vent.trigger('onClickContName', {view:this, model:this.model} );
+        //}
     }
+    ,initialize: function () {
+        this.model.on('sync', this.render, this); // сработает после измения модели на сервере
+        // при смене kindName в модели (делал чтобы менять из другого вида)
+        //this.model.on('change:kindName', this.render, this);
 
-    ,initialize: function () {}
-
+        this.model.on('destroy', this.remove, this); // сработает после удаления на сервере
+    }
     ,render: function () {
-        this.model.setDateRus();
+        //console.log('render vBuyer');
+        //console.log('render', this, arguments);
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
-
-    ,clickEdit: function () {
-        vent.trigger('vOrder:drawOrderEditor', this);
+    ,remove: function () {
+        this.$el.remove();
     }
-
 });
 
-// список заказов
-// родительский элемент управляет видами, слушает их события отрисовывает их
+// список
 App.Views.Orders = Backbone.View.extend({
-    tagName: 'div'
+    tagName: 'table'
     ,className: 'vOrders silver'
-
-    ,param: {
-        currentEditingOrder: false // текущий редактируемый заказ
-            // ,vOrderAdder: false // текущий добавляемый заказ
-        ,vOrderEditor: false // вид редактируемого заказа
-        ,mOrderHead: false // модель заголовка заказов
-    }
-
-    ,initialize: function () {
-        var self = this;
-        vent.on('vOrder:drawOrderEditor', function (view) { self.drawOrderEditor(view) } );
-        vent.on('vOrder:drawOrderAdder', function (view) { self.drawOrderAdder(view) } );
-        vent.on('vOrderEditor:reDrawOrder', function (view) { self.reDrawOrder(view) } );
-
-        vent.on('cOrder:drawView', function(model) { self.drawAddedView(model) });
-
-        this.param.mOrderHead = new App.Models.OrderHead(); // здесь - чтобы события этой модели сработали
-    }
-
-    ,render: function () {
-        this.collection.each( this.addOne, this); // this - передает контекст
-        this.addHead();
-        return this;
-    }
-    ,addOne: function (mOrder) {
-        var vOrder = new App.Views.Order({model: mOrder});
-        this.$el.append( vOrder.render().el );
-    }
-    ,addHead: function () {
-        var vOrderHead = new App.Views.OrderHead({model:this.param.mOrderHead});
-        this.$el.prepend( vOrderHead.render().el );
-    }
-
-    ,drawOrderEditor: function (view) {
-        vent.off('toChangeBuyerInOrder'); // удалим чтобы не множились
-        if (this.param.vOrderEditor) this.param.vOrderEditor.remove(); // удалим прежний редактор
-        this.param.currentEditingOrder = view;
-        var vOrderEditor = this.param.vOrderEditor = new App.Views.OrderEditor({model: view['model']});
-        var top = view.$el.offset().top + view.$el.height();
-        var left = view.$el.offset().left;
-        var obj = {top:top,left:left}; // сдвиг происходит из за правой полосы прокрутки
-        home.html.editorBox.css(obj).append(vOrderEditor.render().el);
-    }
-
-    ,drawOrderAdder: function (view) {
-        //console.log(view); // view указывает на шапку таблицы
-
-        vent.off('toChangeBuyerInOrder'); // удалим чтобы не множились
-        // вид одинаковый, так что фактически работаем с одним блоком vOrderEditor
-        if (this.param.vOrderEditor) this.param.vOrderEditor.remove();
-        var vOrderEditor = this.param.vOrderEditor = new App.Views.OrderAdder({model: new App.Models.Order });
-        var top = view.$el.offset().top + view.$el.height();
-        var left = view.$el.offset().left;
-        var obj = {top:top,left:left}; // сдвиг происходит из за правой полосы прокрутки
-        home.html.editorBox.css(obj).prepend(vOrderEditor.render().el);
-    }
-
-    ,reDrawOrder: function (view) {
-//        console.log(view);
-        var order = new App.Views.Order({model:view['model']});
-        this.param.currentEditingOrder.$el.after( order.render().$el );
-        this.param.currentEditingOrder.remove();
-    }
-    
-    ,drawAddedView: function (mOrder) {
-        var order = new App.Views.Order({model: mOrder});
-        // todo необходимо разделение шапки и вида со списком, чтобы можно было делать preppend!
-        home.html.ordersBox.append(order.render().el);
-    }
-
-
-});
-
-App.Views.OrderHead = Backbone.View.extend({
-    tagName:'ul'
-    ,className:'vHead'
-    ,template: hp.tmpl('tmplOrderHead')
+    ,template: hp.tmpl('tmplOrders')
 
     ,events: {
-        'click .jAdd' : 'clickAdd'
+        'click .jAdd': function () {
+            vent.trigger('drawOrderEditor', {});
+        }
+    }
+    ,initialize: function () {
+        log('init', 'view', 'Orders', this);
+        var self = this;
+        this.collection.on('add', this.onSync , this); // сработает после добавление модели на сервер
+    }
+    ,onSync: function (model) {
+        //console.log('onSync', model);
+        this.addOne(model);
+    }
+    ,render: function () {
+        this.$el.html( this.template() );
+        this.collection.each(this.addOne, this);
+        return this;
+    }
+    ,addOne: function (modelOrder) {
+        var view = new App.Views.Order({model: modelOrder});
+        this.$el.find('#ordersList').append( view.render().el );
+    }
+});
+
+App.Views.OrderEditor = Backbone.View.extend({
+    tagName: 'form'
+    ,className: 'vOrderEditor editor'
+    ,template: hp.tmpl('tmplOrderEdit')
+
+    ,events: {
+        'click .jClose': 'clickClose',
+        'click .jAdd': 'clickAdd',
+        'click .jChange': 'clickChange',
+        'click .jDel': 'clickDel'
     }
 
     ,initialize: function () {
-        
+        //console.log(this, arguments);
     }
-
     ,render: function () {
-        this.$el.html(this.template(this.model.toJSON()));
+        this.$el.html( this.template( this.model.toJSON() ) );
+        this.$el.find('[type="ui_date"]').datepicker({dateFormat: "dd.mm.yy", language: "ru"});
         return this;
+    }
+    ,clickClose: function () {
+        this.remove();
     }
 
     ,clickAdd: function () {
-        // считаю что превиксы перед методом типа vOrderHead: могут сбить с толку
-        // если мы переместим кнопку в другую область (вид)
-        vent.trigger('vOrder:drawOrderAdder', this);
+        var self = this;
+        this.setData();
+        settings.cOrders.create(this.model, {
+            wait:true
+            ,success : function() { self.remove() }
+            ,error: function () {}
+        });
+        return false;
     }
 
+    ,clickChange: function () {
+        var self = this;
+        this.setData();
+        this.model.save([], {
+            wait:true, dataType:"text"
+            ,success : function() { self.remove() }
+            ,error: function () {}
+        });
+        return false;
+    }
+
+    ,setData: function () {
+        var dataForm = this.$el.serializeArray();
+        for (var num in dataForm) {
+            if (dataForm.hasOwnProperty(num)) {
+                var obj = dataForm[num];
+                // может быть стоит обновлять объекст а потом его передавать в save модели?
+                // будет ли в таком случае работать валидация?
+                this.model.set(obj['name'], obj['value']);
+            }
+        }
+    }
+
+    ,clickDel: function () {
+        var self = this;
+        this.model.destroy({
+            data: { _token: hp.getToken() }, processData: true,
+            wait:true, dataType:"text"
+            ,success : function() { self.remove() }
+            ,error: function () {}
+        });
+        return false;
+    }
 });

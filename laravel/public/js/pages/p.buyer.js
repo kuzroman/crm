@@ -15,46 +15,46 @@ pBuyer.init = function () {
     this.event();
 
     // в коллекцию обычно передается массив данных с сервера
-    var viewBuyers = new App.Views.Buyers({collection: settings.cBuyers});
+    var view = new App.Views.Buyers({collection: settings.cBuyers});
 
     // в роутах есть тригеры событий => подписка на них должна быть оформлена до их вызова.
     //this.startRouts(); // с этого момента срабатывают события в роутах!
 
     // отрисовку делать в конце, когда все экземпляры инициализированы
-    this.html.buyersBox.html(viewBuyers.render().el);
+    this.html.box.html(view.render().el);
 };
 
 pBuyer.html = {
     init: function () {
         this.body = $('body');
-        this.buyersBox = $('#buyersBox'); // список покупателей
+        this.box = $('#buyersBox'); // список покупателей
     }
 
-    ,vEditBuyer: null
+    ,vEdit: null
 };
 
 pBuyer.event = function () {
     var self = this;
 
     vent.on('drawBuyerEditor', function () {
-        self.drawBuyerEditor(arguments[0]['view'], arguments[0]['model']);
+        self.drawEditor(arguments[0]['view'], arguments[0]['model']);
         //console.log(arguments[0]['view'], arguments[0]['model']);
     })
 };
 
-pBuyer.drawBuyerEditor = function (view, model) {
+pBuyer.drawEditor = function (view, model) {
     //console.log(arguments);
 
     var innerModel = model ? model : new App.Models.Buyer;
-    var vBuyerEditor = new App.Views.BuyerEditor({model: innerModel});
+    var vEditor = new App.Views.BuyerEditor({model: innerModel});
 
     var top = view ? view.$el.offset().top + view.$el.height() : $('.vBuyers').offset().top + 29;
     var left = view ? view.$el.offset().left : $('.vBuyers').offset().left;
-    vBuyerEditor.$el.css({top:top, left:left});
+    vEditor.$el.css({top:top, left:left});
 
-    if (pBuyer.html.vEditBuyer) pBuyer.html.vEditBuyer.remove();
-    pBuyer.html.vEditBuyer = vBuyerEditor;
-    $('body').append(vBuyerEditor.render().el);
+    if (pBuyer.html.vEdit) pBuyer.html.vEdit.remove();
+    pBuyer.html.vEdit = vEditor;
+    $('body').append(vEditor.render().el);
 };
 
 //pBuyer.startRouts = function () {

@@ -52,8 +52,8 @@ App.Views.Contacts = Backbone.View.extend({
         return this;
     }
     ,addOne: function (modelBuyer) {
-        var model = new App.Views.Contact({model: modelBuyer});
-        this.$el.find('#contactsList').append( model.render().el );
+        var view = new App.Views.Contact({model: modelBuyer});
+        this.$el.find('#contactsList').append( view.render().el );
     }
 });
 

@@ -1,92 +1,86 @@
-App.Models.OrderHead = Backbone.Model.extend({
-    defaults: {
-        adding: false // есть ли кнопка добавление
+// модель Buyer зависит от данных settings.kindBuyerJSON
+App.Models.Order = Backbone.Model.extend({
+    urlRoot: 'order'
+
+    ,defaults: {
+        //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)
+        // при вызове метода save. Id должен добавляться SQL автоматически.
+        dateCreated: Date.create(new Date(), 'ru').format('{yyyy}-{MM}-{dd}')
+        ,dateCreatedRus: ''
+        ,id_buyer: ''
+        ,buyerName: ''
+        ,desc: ''
+        ,id_place: ''
+        ,placeName: ''
+        ,cash: ''
+        ,price: ''
+        ,paid: ''
+        ,dateCompleted: Date.create(new Date(), 'ru').format('{yyyy}-{MM}-{dd}')
+        ,dateCompletedRus: ''
+        ,finished: ''
+
+        ,edit: true // если тру появится кнопка редактировать
+        ,_token: hp.getToken()
     }
 
     ,initialize : function () {
+        log('init', 'model', 'mBuyer', this);
         var self = this;
 
-        // прослушка роута
-        vent.on('rHome:edit', function () { self.set({adding:true}); });
+        this.setDateRus();
+
+        this.on('change:id_buyer', this.setBuyerName, this);
+        this.on('change:id_place', this.setPlaceName, this);
+        this.on('change:dateCreatedRus', this.setDateForBackend, this);
+        this.on('change:dateCompletedRus', this.setDateForBackend, this);
+
+        this.on('request', this.onChangeModel, this);
+        this.on('add', this.onChangeModel, this);
+
+        this.on('error', this.onError, this);
+        this.on('invalid', this.onInvalid, this);
     }
 
-});
+    //,onChangeModel: function () {
+    //    console.log('onChangeModel', this);
+    //}
 
-App.Models.Order = Backbone.Model.extend({
-    defaults: {
-        //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post) , при вызове метода save. Id должен добавляться SQL автоматически.
-        created: '' // дата начала для базы
-        ,created_rus: '' // для сайта
-        ,id_buyer: false
-        ,b_name: 'Название'
-        ,desc: 'Описание'
-        ,cash: false
-        ,price: 0
-        ,paid: false
-        ,completed: ''
-        ,completed_rus: ''
-        ,finished: false
+    ,setBuyerName: function () {
+        var id = this.get('id_buyer')
+            ,model = settings.cBuyers.get(id)
+            ,field = model.get('name');
+        this.set('buyerName', field);
+    }
 
-        ,editing: false // если тру появится кнопка редактировать
-    },
+    ,setPlaceName: function () {
+        var id = this.get('id_place')
+            ,model = settings.cPlaces.get(id)
+            ,field = model.get('name');
+        this.set('placeName', field);
+    }
 
-    url: '/order',
-
-    setDateRus: function () {
+    ,setDateRus: function () {
         var format = '{dd}.{MM}.{yyyy}';
-        this.set('created_rus', Date.create(this.get('created')).format(format));
-        this.set('completed_rus', Date.create(this.get('completed')).format(format));
-    },
-    setDateForBackend: function () {
+        this.set('dateCreatedRus', Date.create(this.get('dateCreated')).format(format));
+        this.set('dateCompletedRus', Date.create(this.get('dateCompleted')).format(format));
+    }
+    ,setDateForBackend: function () {
         var format = '{yyyy}-{MM}-{dd}';
-        this.set('created', Date.create(this.get('created_rus'), 'ru').format(format));
-        this.set('completed', Date.create(this.get('completed_rus'), 'ru').format(format));
-    },
-
-    initialize : function () {
-        var self = this;
-
-        // прослушка роута
-        vent.on('rHome:edit', function () { self.set({editing:true}); });
+        this.set('dateCreated', Date.create(this.get('dateCreatedRus'), 'ru').format(format));
+        this.set('dateCompleted', Date.create(this.get('dateCompletedRus'), 'ru').format(format));
     }
 
     ,validate: function (attrs, options) {
-        // выполняется при save (для set: order.set({'price':0}, {validate : true}); )
-        var errors = {};
-
-        if (!attrs.created_rus) {
-            errors.created_rus = 'Введите дату';
+        if (!$.trim(attrs.price) ) {
+            return "Укажите цену работы";
         }
-        if (!attrs.completed_rus) {
-            errors.completed_rus = 'Введите дату';
-        }
+    }
 
-        //console.log('App.Models.Order.validate.error - ', errors);
-
-        if(_.keys(errors).length > 0) {
-            // вывести текс напротив input где есть ошибка
-            vent.trigger('mOrder:errorAdding', errors);
-            return errors;
-        }
-
-//        if (!attrs.buyer.length) {
-//            errors.buyer = 'Введите название компании.';
-//        }
-//        if (!attrs.desc.length) {
-//            errors.desc = 'Введите описание компании.';
-//        }
-//
-//        var price = attrs.price;
-//        if (!price.length || price <= 0) {
-//            errors.price = 'Введите цену';
-//        }
-//
-//        console.log('App.Models.Order.validate.error - ', errors);
-//
-//        if(_.keys(errors).length > 0) {
-//            return errors;
-//        }
-
+    ,onError: function () {
+        alert ('Нет соединения с сетью, попробуйте позже.');
+    }
+    ,onInvalid: function (model, text, objValid) {
+        alert(text);
     }
 
 });

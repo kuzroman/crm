@@ -12,12 +12,8 @@
 */
 
 Route::get('main', 'MainController@index');
-
 Route::get('/', 'WelcomeController@index');
 
-
-//Route::get('/orders/'    , 'OrderController@index');
-//Route::get('/order/{id}' , 'OrderController@show');
 
 Route::get('/buyer/'        , 'BuyerController@index');   // получить
 Route::put('/buyer/{id}'    , 'BuyerController@update');  // изменить
@@ -33,6 +29,16 @@ Route::get('/contact/'        , 'ContactController@index');   // получит�
 Route::put('/contact/{id}'    , 'ContactController@update');  // изменить
 Route::post('/contact'        , 'ContactController@create');  // добавить
 Route::delete('/contact/{id}' , 'ContactController@destroy'); // удалить
+
+Route::get('/order/'        , 'OrderController@index');   // получить
+Route::put('/order/{id}'    , 'OrderController@update');  // изменить
+Route::post('/order'        , 'OrderController@create');  // добавить
+Route::delete('/order/{id}' , 'OrderController@destroy'); // удалить
+
+Route::get('/place/'        , 'PlaceController@index');   // получить
+Route::put('/place/{id}'    , 'PlaceController@update');  // изменить
+Route::post('/place'        , 'PlaceController@create');  // добавить
+Route::delete('/place/{id}' , 'PlaceController@destroy'); // удалить
 
 
 Route::get('home', 'HomeController@index');

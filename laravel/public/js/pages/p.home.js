@@ -6,7 +6,7 @@ $(function () {
 //console.log = function() {};
 
 home = {
-  ordersJSON: ordersJSON // ordersJSON from app\views\template\order.blade.php
+  ordersJSON: ordersJSON // ordersJSON from app\views\template\order.blade--.php
   , cOrders: null
 
   //,buyersJSON: buyersJSON // buyersJSON from app\views\template\--buyer.blade.php

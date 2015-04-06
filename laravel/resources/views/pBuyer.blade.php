@@ -8,9 +8,9 @@
     <div id="buyersBox"></div>
 
     <script type="text/template" id="tmplBuyers">
-        <thead class="buyers silver">
+        <thead>
             <tr class="head">
-                <td class="per3">#</td>
+                <td class="">#</td>
                 <td class="">Название</td>
                 <td class="">Вид</td>
                 <td class="">Описание</td>
@@ -21,7 +21,7 @@
                 <td class=" btn"><div class="jAdd">Добавить</div></td>
             </tr>
         </thead>
-        <tbody class="buyers silver" id="buyersList"></tbody>
+        <tbody id="buyersList"></tbody>
     </script>
 
     <script type="text/template" id="tmplBuyer">
@@ -40,38 +40,6 @@
 
     <script type="text/template" id="tmplBuyerEdit">
         <div class="jClose close">X</div>
-
-        {{--<table>--}}
-            {{--<tr>--}}
-                {{--<td><input name="name" value="<%=name%>"/></td>--}}
-                {{--<td>--}}
-                    {{--<select name="id_kind">--}}
-                        {{--<% _.each(settings.cKindBuyers, function(x,index) {--}}
-                                {{--var model = settings.cKindBuyers.at(index)--}}
-                                    {{--,kind = model.get('kind')--}}
-                                    {{--,id = model.get('id');--}}
-
-                                {{--var selected = (id_kind == id) ? 'selected' : '';--}}
-                        {{--%>--}}
-                         {{--<option <%=selected%> value="<%=id%>"><%=kind%></option>--}}
-                        {{--<% }); %>--}}
-                    {{--</select>--}}
-                {{--</td>--}}
-                {{--<td><input name="about" value="<%=about%>"></td>--}}
-                {{--<td><input name="contact" value="<%=contact%>"></td>--}}
-                {{--<td><input name="cell_1" value="<%=cell_1%>"></td>--}}
-                {{--<td><input name="cell_2" value="<%=cell_2%>"></td>--}}
-                {{--<td><input name="email" value="<%=email%>"></td>--}}
-                {{--<%  if (name == '') { %>--}}
-                    {{--<td><button class="jAdd">Добавить</button></td>--}}
-                {{--<% } else { %>--}}
-                    {{--<td><button class="jChange mr18">Изменить</button></td>--}}
-                    {{--<td><button class="jDel">Удалить</button></td>--}}
-                {{--<% } %>--}}
-            {{--</tr>--}}
-        {{--</table>--}}
-
-
         <table>
             <tr>
                 <td>Название</td>
@@ -83,12 +51,12 @@
                     <select name="id_kind">
                         <% _.each(settings.cKindBuyers, function(x,index) {
                                 var model = settings.cKindBuyers.at(index)
-                                    ,kind = model.get('kind')
+                                    ,name = model.get('name')
                                     ,id = model.get('id');
 
                                 var selected = (id_kind == id) ? 'selected' : '';
                         %>
-                         <option <%=selected%> value="<%=id%>"><%=kind%></option>
+                         <option <%=selected%> value="<%=id%>"><%=name%></option>
                         <% }); %>
                     </select>
                 </td>
@@ -144,7 +112,6 @@
 
     <script type="text/javascript" src="js/models/m.kindBuyer.js" language="javascript"></script>
     <script type="text/javascript" src="js/collections/c.kindBuyer.js" language="javascript"></script>
-    {{--понадобится если захочу отобразить шаблон buyer.blade без kindBuer.blade--}}
     @if (isset($kind_buyer) && count($kind_buyer) )
     <script>
     $(function () {

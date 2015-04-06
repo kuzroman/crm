@@ -15,14 +15,17 @@ class CreateOrdersTable extends Migration {
         // http://laravel.com/docs/4.2/schema#adding-columns
         Schema::create('orders', function($table) {
             $table->increments('id');
-            $table->date('created'); // дата создания
+
+            $table->date('dateCreated');
+            $table->date('dateCompleted');
             $table->string('id_buyer');
+            $table->string('id_place');
             $table->text('desc');
-            $table->boolean('cash'); // безнал
             $table->string('price');
+            $table->boolean('cash'); // безнал
             $table->boolean('paid'); // оплачено
-            $table->date('completed'); // дата завершения
             $table->boolean('finished'); // сдано
+
             $table->timestamps(); // вроде как обязательное поле для всех миграций!
         });
     }

@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\KindBuyer;
 use DB;
 
@@ -28,7 +29,7 @@ class KindBuyerController extends Controller {
     public function create(Request $request)
     {
         $model = new KindBuyer;
-        $model->kind = $request->input('kind');
+        $model->name = $request->input('name');
 
         $model->save();
 
@@ -76,7 +77,7 @@ class KindBuyerController extends Controller {
     public function update(Request $request, $id)
     {
         $model = KindBuyer::find($id);
-        $model->kind = $request->input('kind');
+        $model->name = $request->input('name');
         $model->save();
     }
 
@@ -88,7 +89,7 @@ class KindBuyerController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        // удалять только в случае если нет связанных данных с покупателями
+        // удалять только в случае если нет связанных данных с другой таблицей
         $found = DB::select("select id from buyers WHERE id_kind = $id LIMIT 1");
         if (!$found) {
             KindBuyer::destroy($id);

@@ -4,7 +4,7 @@ App.Models.KindBuyer = Backbone.Model.extend({
     ,defaults: {
         //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)
         // при вызове метода save. Id должен добавляться SQL автоматически.
-        kind: ''
+        name: ''
         ,_token: hp.getToken()
     }
 
@@ -16,15 +16,14 @@ App.Models.KindBuyer = Backbone.Model.extend({
     ,onError: function () {
         alert ('Нет соединения с сетью, попробуйте позже.');
     }
-    ,onInvalid: function (model, text, objValid) {
-        alert(text);
-    }
 
     ,validate: function (attrs, options) {
-        if (!$.trim(attrs.kind) ) {
+        if (!$.trim(attrs.name) ) {
             return "Передано пустое значение";
         }
     }
-
+    ,onInvalid: function (model, text, objValid) {
+        alert(text);
+    }
 
 });

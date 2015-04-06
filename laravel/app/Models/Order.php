@@ -1,44 +1,27 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Order extends Model {
+    protected $fillable = ['dateCreated', 'dateCompleted', 'id_buyer', 'id_place',
+        'desc', 'price', 'cash', 'paid', 'finished'];
 
-//    protected $table = 'my_users'; // можно явно указать таблицу
-
+    //    protected $table = 'my_users'; // можно явно указать таблицу
     // обязательно добавить или метод add не будет работать - незащищенное введение данных
-    //public static $unguarded = true; // laravel не нравится что мы напрямую добавляем данные.
 
-
+    public static $unguarded = true;
 
     public static function getAll() {
+        //$orders = Order::all();
 
-        //$orders = DB::select('select o.*, b.name as b_name from orders o INNER JOIN buyers b ON o.id_buyer = b.id');
+        $model = DB::select('
+          SELECT o.*, b.name AS buyerName, p.name AS placeName
+          FROM orders o
+          INNER JOIN buyers b ON o.id_buyer = b.id
+          INNER JOIN places p ON o.id_place = p.id
+          ORDER BY id');
 
-        $orders = Order::all();
-
-        return json_encode($orders);
+        return json_encode($model);
     }
-
-
-//    // добавление новых данных
-//    public static function add($data) {
-//        try {
-//            $post = Order::create([
-//                'created' => $data['created'],
-//                'id_buyer' => $data['id_buyer'],
-//                'desc' => $data['desc'],
-//                'cash' => $data['cash'],
-//                'price' => $data['price'],
-//                'paid' => $data['paid'],
-//                'completed' => $data['completed'],
-//                'finished' => $data['finished']
-//            ]);
-//            return $post;
-//        }
-//        catch(Exeption $ex) {
-//            return $ex;
-//        }
-//    }
-
 }

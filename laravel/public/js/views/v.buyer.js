@@ -38,7 +38,7 @@ App.Views.Buyer = Backbone.View.extend({
 // список
 App.Views.Buyers = Backbone.View.extend({
     tagName: 'table'
-    ,className: 'vBuyers'
+    ,className: 'vBuyers silver'
     ,template: hp.tmpl('tmplBuyers')
 
     ,events: {
@@ -61,8 +61,8 @@ App.Views.Buyers = Backbone.View.extend({
         return this;
     }
     ,addOne: function (modelBuyer) {
-        var viewBuyer = new App.Views.Buyer({model: modelBuyer});
-        this.$el.find('#buyersList').append( viewBuyer.render().el );
+        var view = new App.Views.Buyer({model: modelBuyer});
+        this.$el.find('#buyersList').append( view.render().el );
     }
 });
 

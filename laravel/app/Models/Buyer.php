@@ -14,15 +14,15 @@ class Buyer extends Model {
 
     public static function getAll() {
 
-        $orders = DB::select('
-          SELECT b.*, kb.kind AS kindName FROM buyers b
+        $model = DB::select('
+          SELECT b.*, kb.name AS kindName FROM buyers b
           INNER JOIN kind_buyers kb ON b.id_kind = kb.id
           ORDER BY id');
 
         // выборка из 3х таблиц
 //        $orders = DB::select('
 //          SELECT b.*,
-//          kb.kind AS kindName,
+//          kb.name AS kindName,
 //          c.name AS contName, c.cell_1 AS contCell_1, c.cell_2 AS contCell_2, c.email AS contEmail
 //          FROM buyers b
 //          INNER JOIN contacts c ON b.id_contact = c.id
@@ -30,7 +30,7 @@ class Buyer extends Model {
 //          ORDER BY id');
 
         //var_dump( json_encode($order) );
-        return json_encode($orders);
+        return json_encode($model);
     }
 
 }

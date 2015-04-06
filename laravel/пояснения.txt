@@ -96,4 +96,3 @@ php artisan db:seed
 
 add & destroy срабатывают после получения ответа от сервера
 change - перед
-

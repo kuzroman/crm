@@ -14,9 +14,7 @@ class Contact extends Model {
 
 
     public static function getAll() {
-//        $orders = Order::all();
-        //$orders = DB::select('select b.*, kb.kind as kindName from buyers b INNER JOIN kind_buyers kb ON b.id_kind = kb.id ORDER BY id');
-        //return json_encode($orders);
+
     }
 
 }

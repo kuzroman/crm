@@ -5,21 +5,21 @@
 {{--  все что напишем между @section('content') и @stop попадет в @yield('content') в шаблон в который мы обращаемся --}}
 @section('content') {{-- здесь можно разместить контент --}}
 
-    <div id="kindBuyer" class="kindBuyer">
-        <form id="addKindBuyer" class="addKindBuyer">
-            <input name="kind" type="text" placeholder="вид продавца" />
+    <div id="kindBuyer" class="simpleView">
+        <form id="addKindBuyer">
+            <input name="name" type="text" placeholder="вид продавца" />
             <button class="jAdd">Добавить</button>
         </form>
         <div id="kindBuyersBox"></div>
     </div>
 
     <script type="text/template" id="tmplKindBuyer">
-        <span><%=kind%></span>
+        <span><%=name%></span>
         <button class="jEdit">Ред-ть</button>
     </script>
 
     <script type="text/template" id="tmplKindBuyerEdit">
-        <input class="" name="kindBuyer" type="text" value="<%=kind%>" />
+        <input class="" name="name" type="text" value="<%=name%>" />
         <button class="jDel">Удалить</button>
         <button class="jChange">Изм-ть</button>
         <button class="jCancel">Отмена</button>

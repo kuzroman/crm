@@ -20,16 +20,16 @@ pContact.init = function () {
     //console.log(view.render().el);
 
     // отрисовку делать в конце, когда все экземпляры инициализированы
-    this.html.contactsBox.html(view.render().el);
+    this.html.box.html(view.render().el);
 };
 
 pContact.html = {
     init: function () {
         this.body = $('body');
-        this.contactsBox = $('#contactsBox'); // список покупателей
+        this.box = $('#contactsBox'); // список покупателей
     }
 
-    ,vEditContact: null
+    ,vEdit: null
 };
 
 pContact.event = function () {
@@ -51,8 +51,8 @@ pContact.drawEditor = function (view, model) {
     var left = view ? view.$el.offset().left : $('.vContacts > div').offset().left;
     vEditor.$el.css({top:top, left:left});
 
-    if (pContact.html.vEditContact) pContact.html.vEditContact.remove();
-    pContact.html.vEditContact = vEditor;
+    if (pContact.html.vEdit) pContact.html.vEdit.remove();
+    pContact.html.vEdit = vEditor;
     $('body').append(vEditor.render().el);
 };
 

@@ -1,7 +1,7 @@
 // вид одного
 App.Views.KindBuyer = Backbone.View.extend({
     tagName: 'div'
-    ,className: 'vKindBuyer'
+    ,className: 'vOne'
     ,template: hp.tmpl('tmplKindBuyer')
     ,templateEdit: hp.tmpl('tmplKindBuyerEdit')
 
@@ -33,7 +33,7 @@ App.Views.KindBuyer = Backbone.View.extend({
     }
     ,clickChange: function () {
         var self = this;
-        this.model.set('kind', this.$el.find('input').val() );
+        this.model.set('name', this.$el.find('input').val() );
         this.model.save([], {
             wait:true, dataType:"text"
             ,success : function() {
@@ -45,6 +45,8 @@ App.Views.KindBuyer = Backbone.View.extend({
         return false;
     }
     ,clickDel: function () {
+        if (!confirm(hp.text.confirmDel)) return;
+
         var self = this;
         this.model.destroy({
             data: { _token: hp.getToken },processData: true,
@@ -52,7 +54,7 @@ App.Views.KindBuyer = Backbone.View.extend({
             //,dataType:"text"
             ,success : function(model, data, obj) {
                 // если потребуется можно вынести в отдельный метод!
-                if (data.length) alert (hp.text.buyer.del);// если не могу удалить на сервере, возвращаю данные
+                if (data.length) alert (hp.text.kindBuyer.del);// если не могу удалить на сервере, возвращаю данные
                 else self.remove();
             }
             ,error: function () {}
@@ -61,7 +63,7 @@ App.Views.KindBuyer = Backbone.View.extend({
     }
 
     ,clickCancel: function (ev) {
-        $(ev.target).val( this.model.get('kind') );
+        $(ev.target).val( this.model.get('name') );
         this.render();
     }
 
@@ -70,7 +72,7 @@ App.Views.KindBuyer = Backbone.View.extend({
 // список
 App.Views.KindBuyers = Backbone.View.extend({
     tagName: 'div'
-    ,className: 'vKindBuyers'
+    ,className: 'vList'
     //,template: hp.tmpl('kindBuyerList')
 
     ,events: {
@@ -96,9 +98,9 @@ App.Views.KindBuyers = Backbone.View.extend({
         this.collection.each(this.addOne, this);
         return this;
     }
-    ,addOne: function (modelBuyer) {
-        var viewBuyer = new App.Views.KindBuyer({model: modelBuyer});
-        this.$el.append( viewBuyer.render().el );
+    ,addOne: function (model) {
+        var view = new App.Views.KindBuyer({model: model});
+        this.$el.append( view.render().el );
     }
 });
 
@@ -120,7 +122,7 @@ App.Views.AddKindBuyer = Backbone.View.extend({
         settings.cKindBuyers.create(this.newAttributes(), {
             wait:true
             ,success : function() {
-                self.$el.find('[name="kind"]').val('');
+                self.$el.find('[name="name"]').val('');
                 log('addSuccess', 'view', 'AddKindBuyer');
             }
             ,error: function () {}
@@ -131,7 +133,7 @@ App.Views.AddKindBuyer = Backbone.View.extend({
 
     ,newAttributes: function () {
         return {
-            kind: this.$el.find('[name="kind"]').val()
+            name: this.$el.find('[name="name"]').val()
             ,_token: hp.getToken()
         }
     }

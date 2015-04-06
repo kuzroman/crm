@@ -15,7 +15,7 @@ class CreateKindBuyersTable extends Migration {
 		Schema::create('kind_buyers', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('kind');
+            $table->string('name');
 			$table->timestamps();
 		});
 	}
