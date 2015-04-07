@@ -24,4 +24,8 @@ class Order extends Model {
 
         return json_encode($model);
     }
+
+    public static function getNameFor() {
+
+    }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypeCostsTable extends Migration {
+class CreateEmployeesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,14 @@ class CreateTypeCostsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('type_costs', function(Blueprint $table)
+		Schema::create('employees', function(Blueprint $table)
 		{
 			$table->increments('id');
+
             $table->string('name');
+            $table->string('salary');
+            $table->boolean('isWork');
+
 			$table->timestamps();
 		});
 	}
@@ -27,7 +31,7 @@ class CreateTypeCostsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('type_costs');
+		Schema::drop('employees');
 	}
 
 }

@@ -107,6 +107,10 @@ ul {
 .silver .btn {
   cursor: pointer;
 }
+
+.silver input {
+    padding: 2px;
+}
 /* end таблицы silver
 =============================*/
 

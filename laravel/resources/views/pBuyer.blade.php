@@ -10,14 +10,14 @@
     <script type="text/template" id="tmplBuyers">
         <thead>
             <tr class="head">
-                <td class="">#</td>
-                <td class="">Название</td>
-                <td class="">Вид</td>
-                <td class="">Описание</td>
-                <td class="">Контакт</td>
-                <td class="">Телефон 1</td>
-                <td class="">Телефон 2</td>
-                <td class="">Email</td>
+                <td>#</td>
+                <td>Название</td>
+                <td>Вид</td>
+                <td>Описание</td>
+                <td>Контакт</td>
+                <td>Телефон 1</td>
+                <td>Телефон 2</td>
+                <td>Email</td>
                 <td class=" btn"><div class="jAdd">Добавить</div></td>
             </tr>
         </thead>
@@ -25,14 +25,14 @@
     </script>
 
     <script type="text/template" id="tmplBuyer">
-        <td class=""><%=id%></td>
-        <td class=""><%=name%></td>
-        <td class=""><%=kindName%></td>
-        <td class=""><%=about%></td>
-        <td class=""><%=contact%></td>
-        <td class=""><%=cell_1%></td>
-        <td class=""><%=cell_2%></td>
-        <td class=""><%=email%></td>
+        <td><%=id%></td>
+        <td><%=name%></td>
+        <td><%=kindName%></td>
+        <td><%=about%></td>
+        <td><%=contact%></td>
+        <td><%=cell_1%></td>
+        <td><%=cell_2%></td>
+        <td><%=email%></td>
         <% if (edit) { %>
             <td class="btn jEdit">Редакция</td>
         <% } %>

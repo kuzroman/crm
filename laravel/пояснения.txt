@@ -33,6 +33,7 @@ Seeding
 в папке app/database/seeds добавим файл PostsSeeder.php - т.к. posts наша таблица - наполним ее фейковыми данными
 в файле app/database/seeds/DatabaseSeeder.php - объявим новый seder - PostsSeeder
 и в консоли объявим его - php artisan db:seed или запустить: composer dump-autoload
+чтобы создать таблицу в bd migration нужно выполнить php artisan migrate
 
 Откат всех миграций и их повторное применение php artisan migrate:refresh --seed
 

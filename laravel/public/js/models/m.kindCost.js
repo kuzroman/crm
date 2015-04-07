@@ -1,5 +1,5 @@
-App.Models.KindBuyer = Backbone.Model.extend({
-    urlRoot: 'kindbuyer'
+App.Models.KindCost = Backbone.Model.extend({
+    urlRoot: 'kindcost'
 
     ,defaults: {
         //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)

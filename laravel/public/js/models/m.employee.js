@@ -1,10 +1,14 @@
-App.Models.KindBuyer = Backbone.Model.extend({
-    urlRoot: 'kindbuyer'
+App.Models.Employee = Backbone.Model.extend({
+    urlRoot: 'employee'
 
     ,defaults: {
         //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)
         // при вызове метода save. Id должен добавляться SQL автоматически.
         name: ''
+        ,salary: ''
+        ,isWork: ''
+
+        ,edit: ''
         ,_token: hp.getToken()
     }
 

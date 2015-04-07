@@ -22,8 +22,7 @@ class OrderController extends Controller {
         $buyers = Buyer::all();
         $places = Place::all();
 //        return $orders;
-        return view('pOrder', ['orders' => $orders, 'buyers' => $buyers, 'places' => $places
-        ] );
+        return view('pOrder', ['orders' => $orders, 'buyers' => $buyers, 'places' => $places]);
 	}
 
 	/**

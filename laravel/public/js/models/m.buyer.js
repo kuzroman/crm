@@ -47,7 +47,7 @@ App.Models.Buyer = Backbone.Model.extend({
     }
 
     ,onError: function () {
-        alert ('Нет соединения с сетью, попробуйте позже.');
+        alert (hp.text.noConnection);
     }
 
     ,validate: function (attrs, options) {

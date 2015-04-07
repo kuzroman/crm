@@ -19,7 +19,7 @@ App.Models.Contact = Backbone.Model.extend({
     }
 
     ,onError: function () {
-        alert ('Нет соединения с сетью, попробуйте позже.');
+        alert (hp.text.noConnection);
     }
     ,onInvalid: function (model, text, objValid) {
         alert(text);

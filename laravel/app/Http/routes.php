@@ -40,6 +40,21 @@ Route::put('/place/{id}'    , 'PlaceController@update');  // изменить
 Route::post('/place'        , 'PlaceController@create');  // добавить
 Route::delete('/place/{id}' , 'PlaceController@destroy'); // удалить
 
+Route::get('/kindcost/'        , 'KindCostController@index');   // получить
+Route::put('/kindcost/{id}'    , 'KindCostController@update');  // изменить
+Route::post('/kindcost'        , 'KindCostController@create');  // добавить
+Route::delete('/kindcost/{id}' , 'KindCostController@destroy'); // удалить
+
+Route::get('/employee/'        , 'EmployeeController@index');   // получить
+Route::put('/employee/{id}'    , 'EmployeeController@update');  // изменить
+Route::post('/employee'        , 'EmployeeController@create');  // добавить
+Route::delete('/employee/{id}' , 'EmployeeController@destroy'); // удалить
+
+Route::get('/mutualcalc/'        , 'MutualCalcController@index');   // получить
+Route::put('/mutualcalc/{id}'    , 'MutualCalcController@update');  // изменить
+Route::post('/mutualcalc'        , 'MutualCalcController@create');  // добавить
+Route::delete('/mutualcalc/{id}' , 'MutualCalcController@destroy'); // удалить
+
 
 Route::get('home', 'HomeController@index');
 
