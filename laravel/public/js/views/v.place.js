@@ -1,6 +1,11 @@
+$(function() {
+    var vList = new App.Views.Places({collection: settings.cPlaces});
+    vList.render();
+});
+
 // вид одного
 App.Views.Place = Backbone.View.extend({
-    tagName: 'div'
+    tagName: 'tr'
     ,className: 'vOne'
     ,template: hp.tmpl('tmplPlace')
     ,templateEdit: hp.tmpl('tmplPlaceEdit')
@@ -11,23 +16,18 @@ App.Views.Place = Backbone.View.extend({
         'click .jDel':    'clickDel',
         'click .jCancel': 'clickCancel'
     }
+    ,initialize: function () {}
 
-    ,initialize: function () {
-        log('init', 'view', 'Place', this);
-        //this.model.on('sync', this.render, this); // сработает после измения модели на сервере
-        //this.model.on('destroy', this.remove, this); // сработает после удаления на сервере
-    }
     ,render: function () {
-        log('render', 'view', 'Place', this.model.toJSON());
         this.$el.html(this.template(this.model.toJSON()));
         return this;
     }
     ,remove: function () {
-        log('remove', 'view', 'Place', this.$el);
         this.$el.remove();
     }
+
+
     ,drawEdit: function () {
-        //console.log(this, arguments);
         this.$el.html(this.templateEdit(this.model.toJSON()));
         return this;
     }
@@ -51,7 +51,6 @@ App.Views.Place = Backbone.View.extend({
         this.model.destroy({
             data: { _token: hp.getToken },processData: true,
             wait:true
-            //,dataType:"text"
             ,success : function(model, data, obj) {
                 // если потребуется можно вынести в отдельный метод!
                 if (data.length) alert (hp.text.place.del);// если не могу удалить на сервере, возвращаю данные
@@ -61,19 +60,15 @@ App.Views.Place = Backbone.View.extend({
         });
         return false;
     }
-
-    ,clickCancel: function (ev) {
-        $(ev.target).val( this.model.get('name') );
+    ,clickCancel: function () {
         this.render();
     }
-
 });
 
 // список
 App.Views.Places = Backbone.View.extend({
-    tagName: 'div'
+    el: '#placesBox'
     ,className: 'vList'
-    //,template: hp.tmpl('kindBuyerList')
 
     ,events: {
         'click .jAdd': function () {
@@ -81,19 +76,16 @@ App.Views.Places = Backbone.View.extend({
         }
     }
     ,initialize: function () {
-        var self = this;
-        //this.collection.on('all', this.test, this);
-        this.collection.on('add', this.onSync , this); // сработает после добавление модели на сервер
-    }
+        // приципить модель добавления
+        var model = new App.Models.Place();
+        new App.Views.AddPlace({el:'#addPlace',model:model});
 
-    ,test: function (model) {
-        console.log(arguments);
+        this.collection.on('add', this.onSync , this); // сработает после добавление модели на сервер
     }
 
     ,onSync: function (model) {
         this.addOne(model);
     }
-
     ,render: function () {
         this.collection.each(this.addOne, this);
         return this;
@@ -106,35 +98,27 @@ App.Views.Places = Backbone.View.extend({
 
 // добавить - отдельный вид
 App.Views.AddPlace = Backbone.View.extend({
-
-    events: {
+    el: '#addPlace'
+    ,events: {
         'click .jAdd': 'clickAdd'
     }
-    ,initialize: function () {
-
-    }
+    ,initialize: function () {}
 
     ,clickAdd: function () {
-        log('add', 'view', 'AddPlace');
         var self = this;
-
         settings.cPlaces.create(this.newAttributes(), {
             wait:true
             ,success : function() {
                 self.$el.find('[name="name"]').val('');
-                log('addSuccess', 'view', 'AddPlace');
             }
             ,error: function () {}
         });
-
         return false;
     }
-
     ,newAttributes: function () {
         return {
             name: this.$el.find('[name="name"]').val()
             ,_token: hp.getToken()
         }
     }
-
 });

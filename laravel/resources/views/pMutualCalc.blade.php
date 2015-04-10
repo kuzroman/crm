@@ -5,28 +5,26 @@
 {{--  все что напишем между @section('content') и @stop попадет в @yield('content') в шаблон в который мы обращаемся --}}
 @section('content') {{-- здесь можно разместить контент --}}
 
-    <div id="ordersBox"></div>
+    <div id="mutualCalcBox"></div>
 
-    <script type="text/template" id="tmplOrders">
+    <script type="text/template" id="tmplMutualCalcs">
         <thead>
             <tr class="head">
                 <td class="">#</td>
-                <td class="">Дата начала</td>
-                <td class="">Покупатель</td>
-                <td class="">Описание</td>
-                <td class="">Участок</td>
-                <td class="">Безнал</td>
-                <td class="">Цена</td>
-                <td class="">Оплачено</td>
-                <td class="">Дата сдачи</td>
-                <td class="">Готово</td>
+                <td class="">Заказ</td>
+                <td class="">Дата</td>
+                <td class="">Сумма</td>
+                <td class="">Контрагент</td>
+                <td class="">Сотрудник</td>
+                <td class="">Вид затрат</td>
+                <td class="">Примечание</td>
                 <td class=" btn"><div class="jAdd">Добавить</div></td>
             </tr>
         </thead>
         <tbody id="ordersList"></tbody>
     </script>
 
-    <script type="text/template" id="tmplOrder">
+    <script type="text/template" id="tmplmMutualCalc">
         <td class=""><%=id%></td>
         <td class=""><%=dateCreatedRus%></td>
         <td class=""><%=buyerName%></td>
@@ -43,7 +41,7 @@
     </script>
 
 
-    <script type="text/template" id="tmplOrderEdit">
+    <script type="text/template" id="tmplMutualCalcEdit">
         <div class="jClose close">X</div>
 
         <table>

@@ -14,7 +14,9 @@
         </tr>
         <tr id="addKindCost">
             <td><input name="name" placeholder="вид затрат"/></td>
-            <td><div class="jAdd btn">Добавить</div></td>
+            <td class="btnBox jAdd btn">
+                <img class="right" src="img/icons/ic_playlist_add_24px.svg" alt="Добавить" title="Добавить"/>
+            </td>
         </tr>
     </thead>
     <tbody id="kindCostsBox"></tbody>
@@ -23,15 +25,17 @@
 
 <script type="text/template" id="tmplKindCost">
     <td><%=name%></td>
-    <td class="btn jEdit">Ред-ть</td>
+    <td class="btnBox jEdit">
+        <div class="btn">Редакция</div>
+    </td>
 </script>
 
 <script type="text/template" id="tmplKindCostEdit">
     <td><input class="" name="name" type="text" value="<%=name%>" /></td>
-    <td>
-        <button class="jCancel">Отмена</button>
-        <button class="jChange">Изм-ть</button>
-        <button class="jDel">Удалить</button>
+    <td class="btnBox">
+        <img class="jCancel btn" src="img/icons/ic_undo_24px.svg" alt="Отмена" title="Отмена"/>
+        <img class="jChange btn" src="img/icons/ic_edit_24px.svg" alt="Изменить" title="Изменить"/>
+        <img class="jDel btn" src="img/icons/ic_delete_24px.svg" alt="Удалить" title="Удалить"/>
     </td>
 </script>
 

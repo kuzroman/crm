@@ -34,7 +34,7 @@ App.Views.Employee = Backbone.View.extend({
         var self = this;
         this.model.set('name', this.$el.find('[name="name"]').val() );
         this.model.set('salary', this.$el.find('[name="salary"]').val() );
-        this.model.set('isWork', this.$el.find('[name="isWork"]').val() );
+        this.model.set('isWork', this.$el.find('[name^="isWork"]:checked').val() );
 
         this.model.save([], {
             wait:true, dataType:"text"
@@ -70,8 +70,8 @@ App.Views.Employee = Backbone.View.extend({
 
 // список
 App.Views.Employees = Backbone.View.extend({
-    el: '#employeesBox',
-    className: 'vList'
+    el: '#employeesBox'
+    ,className: 'vList'
 
     ,events: {
         'click .jAdd': function () {
@@ -110,11 +110,11 @@ App.Views.AddEmployee = Backbone.View.extend({
 
     ,clickAdd: function () {
         var self = this;
-
         settings.cEmployees.create(this.newAttributes(), {
             wait:true
             ,success : function() {
                 self.$el.find('[name="name"]').val('');
+                self.$el.find('[name="salary"]').val('');
             }
             ,error: function () {}
         });
@@ -124,6 +124,8 @@ App.Views.AddEmployee = Backbone.View.extend({
     ,newAttributes: function () {
         return {
             name: this.$el.find('[name="name"]').val()
+            ,salary: this.$el.find('[name="salary"]').val()
+            ,isWork: this.$el.find('[name="isWork"]:checked').val()
             ,_token: hp.getToken()
         }
     }

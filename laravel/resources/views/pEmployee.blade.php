@@ -16,8 +16,13 @@
         <tr id="addEmployee">
             <td><input name="name" placeholder="ФИО" /></td>
             <td><input name="salary" placeholder="Зарплата" /></td>
-            <td><input name="isWork" placeholder="Работает" /></td>
-            <td><div class="jAdd btn">Добавить</div></td>
+            <td>
+                <label><input type="radio" name="isWork" value="0"/>нет</label>
+                <label><input type="radio" name="isWork" value="1"/>да</label>
+            </td>
+            <td class="btnBox jAdd btn">
+                <img class="right" src="img/icons/ic_playlist_add_24px.svg" alt="Добавить" title="Добавить"/>
+            </td>
         </tr>
     </thead>
     <tbody id="employeesBox"></tbody>
@@ -26,18 +31,23 @@
 <script type="text/template" id="tmplEmployee">
     <td><%=name%></td>
     <td><%=salary%></td>
-    <td><%=isWork%></td>
-    <td class="btn jEdit">Редакция</td>
+    <td><% if (isWork == 1) { %>работает<% } else { %>нет<% } %></td>
+    <td class="btnBox jEdit">
+        <div class="btn">Редакция</div>
+    </td>
 </script>
 
 <script type="text/template" id="tmplEmployeeEdit">
     <td><input class="" name="name" type="text" value="<%=name%>" /></td>
     <td><input class="" name="salary" type="text" value="<%=salary%>" /></td>
-    <td><input class="" name="isWork" type="text" value="<%=isWork%>" /></td>
-    <td class="btn">
-        <button class="jCancel">Отмена</button><br>
-        <button class="jChange">Изм-ть</button><br>
-        <button class="jDel">Удалить</button>
+    <td>
+        <label><input type="radio" name="isWork_<%=id%>" value="0" <% if (isWork == 0) { %> checked <% } %>/>нет</label>
+        <label><input type="radio" name="isWork_<%=id%>" value="1" <% if (isWork == 1) { %> checked <% } %>/>да</label>
+    </td>
+    <td class="btnBox">
+        <img class="jCancel btn" src="img/icons/ic_undo_24px.svg" alt="Отмена" title="Отмена"/>
+        <img class="jChange btn" src="img/icons/ic_edit_24px.svg" alt="Изменить" title="Изменить"/>
+        <img class="jDel btn" src="img/icons/ic_delete_24px.svg" alt="Удалить" title="Удалить"/>
     </td>
 </script>
 

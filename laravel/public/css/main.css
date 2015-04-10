@@ -37,7 +37,8 @@ ul {
   color: #D2D2D2;
   cursor: pointer;
 }
-
+.left {float:left}
+.right {float:right}
 /*=============================
 таблицы silver */
 
@@ -81,7 +82,8 @@ ul {
   color: white;
 }
 
-.silver tr > td.btn {
+.silver tr > td.btnBox {
+  width: 90px;
   background: #A7C3FF;
 }
 .silver tr > td.selected {
@@ -105,8 +107,13 @@ ul {
   background: #fff;
 }
 .silver .btn {
+  /*width: 83px;*/
   cursor: pointer;
+  margin: 0 4px;
 }
+.silver .btn:first-child {margin: 0}
+.silver .btn:last-child {margin: 0}
+
 
 .silver input {
     padding: 2px;
@@ -181,6 +188,7 @@ view - OrderEditor */
   position: absolute;
   background: #E0EAE3;
   padding: 20px;
+  border: 1px solid #777;
 }
 .editor td {
   padding: 5px 0;

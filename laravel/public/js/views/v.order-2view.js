@@ -1,23 +1,28 @@
 $(function() {
-    var vList = new App.Views.KindBuyers({collection: settings.cKindBuyers});
+    var vList = new App.Views.Orders({collection: settings.cOrders});
     vList.render();
 });
 
 // вид одного
-App.Views.KindBuyer = Backbone.View.extend({
+App.Views.Order = Backbone.View.extend({
     tagName: 'tr'
     ,className: 'vOne'
-    ,template: hp.tmpl('tmplKindBuyer')
-    ,templateEdit: hp.tmpl('tmplKindBuyerEdit')
+    ,template: hp.tmpl('tmplOrder')
+    ,templateEdit: hp.tmpl('tmplOrderEdit')
 
     ,events: {
+        //'click .jEdit': function () {
+        //    vent.trigger('drawOrderEditor', {view:this, model:this.model} );
+        //}
         'click .jEdit':   'drawEdit',
         'click .jChange': 'clickChange',
         'click .jDel':    'clickDel',
         'click .jCancel': 'clickCancel'
     }
-
-    ,initialize: function () {}
+    ,initialize: function () {
+        //this.model.on('sync', this.render, this); // сработает после измения модели на сервере
+        //this.model.on('destroy', this.remove, this); // сработает после удаления на сервере
+    }
     ,render: function () {
         this.$el.html(this.template(this.model.toJSON()));
         return this;
@@ -25,8 +30,9 @@ App.Views.KindBuyer = Backbone.View.extend({
     ,remove: function () {
         this.$el.remove();
     }
+
+
     ,drawEdit: function () {
-        //console.log(this, arguments);
         this.$el.html(this.templateEdit(this.model.toJSON()));
         return this;
     }
@@ -37,7 +43,7 @@ App.Views.KindBuyer = Backbone.View.extend({
             wait:true, dataType:"text"
             ,success : function() {
                 self.render();
-                vent.trigger('changedKindBuyer', self.model);
+                vent.trigger('changedOrder', self.model);
             }
             ,error: function () {}
         });
@@ -50,38 +56,35 @@ App.Views.KindBuyer = Backbone.View.extend({
         this.model.destroy({
             data: { _token: hp.getToken },processData: true,
             wait:true
-            //,dataType:"text"
             ,success : function(model, data, obj) {
                 // если потребуется можно вынести в отдельный метод!
-                if (data.length) alert (hp.text.kindBuyer.del);// если не могу удалить на сервере, возвращаю данные
+                if (data.length) alert ('Какой то текст');// если не могу удалить на сервере, возвращаю данные
                 else self.remove();
             }
             ,error: function () {}
         });
         return false;
     }
-
-    ,clickCancel: function (ev) {
-        $(ev.target).val( this.model.get('name') );
+    ,clickCancel: function () {
         this.render();
     }
-
 });
 
 // список
-App.Views.KindBuyers = Backbone.View.extend({
-    el: '#kindBuyersBox'
+App.Views.Orders = Backbone.View.extend({
+    el: '#ordersBox'
     ,className: 'vList'
 
     ,events: {
         'click .jAdd': function () {
-            vent.trigger('drawBuyerEditor', {});
+            vent.trigger('drawOrderEditor', {});
         }
     }
     ,initialize: function () {
         // приципить модель добавления
-        var model = new App.Models.KindBuyer();
-        new App.Views.AddKindBuyer({el:'#addKindBuyer',model:model});
+        var model = new App.Models.Order();
+        console.log('model', model);
+        new App.Views.AddOrder({el:'#addOrder',model:model});
 
         this.collection.on('add', this.onSync , this); // сработает после добавление модели на сервер
     }
@@ -94,25 +97,33 @@ App.Views.KindBuyers = Backbone.View.extend({
         return this;
     }
     ,addOne: function (model) {
-        var view = new App.Views.KindBuyer({model: model});
+        var view = new App.Views.Order({model: model});
         this.$el.append( view.render().el );
     }
 });
 
 // добавить - отдельный вид
-App.Views.AddKindBuyer = Backbone.View.extend({
-    el: '#addKindBuyer'
+App.Views.AddOrder = Backbone.View.extend({
+    el: '#addOrder'
+    ,templateEdit: hp.tmpl('tmplOrderEdit')
+
     ,events: {
         'click .jAdd': 'clickAdd'
     }
-    ,initialize: function () {}
+    ,initialize: function () {
+        this.render();
+    }
 
+    ,render: function () {
+        this.$el.html(this.templateEdit(this.model.toJSON()));
+        return this;
+    }
     ,clickAdd: function () {
         var self = this;
-        settings.cKindBuyers.create(this.newAttributes(), {
+        settings.cPlaces.create(this.newAttributes(), {
             wait:true
             ,success : function() {
-                self.$el.find('[name="name"]').val('');
+                self.$el.find('input, textarea').val('');
             }
             ,error: function () {}
         });
@@ -120,8 +131,21 @@ App.Views.AddKindBuyer = Backbone.View.extend({
     }
     ,newAttributes: function () {
         return {
-            name: this.$el.find('[name="name"]').val()
+            dateCreatedRus: this.$el.find('[name="dateCreatedRus"]').val()
+            ,buyerName: this.$el.find('[name="buyerName"]').val()
+            ,desc: this.$el.find('[name="desc"]').val()
+            ,placeName: this.$el.find('[name="placeName"]').val()
+            ,cash: this.$el.find('[name="cash"]').val()
+            ,price: this.$el.find('[name="price"]').val()
+            ,paid: this.$el.find('[name="paid"]').val()
+            ,dateCompletedRus: this.$el.find('[name="dateCompletedRus"]').val()
+            ,finished: this.$el.find('[name="finished"]').val()
             ,_token: hp.getToken()
         }
     }
+});
+
+
+App.Views.BuyersSelect = Backbone.View.extend({
+
 });
