@@ -1,7 +1,6 @@
 {{-- шаблонизатор blade в действии // наследуем шаблон template\template.blade.php --}}
 @extends('template.template')
 
-
 {{--  все что напишем между @section('content') и @stop попадет в @yield('content') в шаблон в который мы обращаемся --}}
 @section('content') {{-- здесь можно разместить контент --}}
 
@@ -21,7 +20,7 @@
                 <td class=" btn"><div class="jAdd">Добавить</div></td>
             </tr>
         </thead>
-        <tbody id="ordersList"></tbody>
+        <tbody id="mutualCalcsList"></tbody>
     </script>
 
     <script type="text/template" id="tmplmMutualCalc">
@@ -52,17 +51,7 @@
             <tr>
                 <td>Покупатель</td>
                 <td>
-                    <select name="id_buyer">
-                        <% _.each(settings.cBuyers, function(x,index) {
-                                var model = settings.cBuyers.at(index)
-                                    ,name = model.get('name')
-                                    ,id = model.get('id');
 
-                                var selected = (id_buyer == id) ? 'selected' : '';
-                        %>
-                         <option <%=selected%> value="<%=id%>"><%=name%></option>
-                        <% }); %>
-                    </select>
                 </td>
             </tr>
             <tr>
@@ -72,17 +61,7 @@
             <tr>
                 <td>Участок</td>
                 <td>
-                    <select name="id_place">
-                        <% _.each(settings.cPlaces, function(x,index) {
-                                var model = settings.cPlaces.at(index)
-                                    ,name = model.get('name')
-                                    ,id = model.get('id');
 
-                                var selected = (id_place == id) ? 'selected' : '';
-                        %>
-                         <option <%=selected%> value="<%=id%>"><%=name%></option>
-                        <% }); %>
-                    </select>
                 </td>
             </tr>
             <tr>
@@ -146,44 +125,53 @@
 
     <script type="text/javascript" src="js/models/m.buyer.js" language="javascript"></script>
     <script type="text/javascript" src="js/collections/c.buyer.js" language="javascript"></script>
-    @if (isset($buyers) && count($buyers) )
+@if (isset($buyers) && count($buyers) )
     <script>
     $(function () {
         if (!settings.cBuyers)
             settings.cBuyers = new App.Collections.Buyers( {!! $buyers !!} )
     })
     </script>
-    @endif
+@endif
 
 
-    <script type="text/javascript" src="js/models/m.place.js" language="javascript"></script>
-    <script type="text/javascript" src="js/collections/c.place.js" language="javascript"></script>
-    @if (isset($places) && count($places) )
+    <script type="text/javascript" src="js/models/m.employee.js" language="javascript"></script>
+    <script type="text/javascript" src="js/collections/c.employee.js" language="javascript"></script>
+@if (isset($employees) && count($employees) )
     <script>
     $(function () {
-        if (!settings.cPlaces)
-            settings.cPlaces = new App.Collections.Places( {!! $places !!} )
+        if (!settings.cEmployees)
+            settings.cEmployees = new App.Collections.Employees( {!! $employees !!} )
     })
     </script>
-    @endif
+@endif
 
+    <script type="text/javascript" src="js/models/m.kindCost.js" language="javascript"></script>
+    <script type="text/javascript" src="js/collections/c.kindCost.js" language="javascript"></script>
+@if (isset($kindCosts) && count($kindCosts) )
+    <script>
+    $(function () {
+        if (!settings.cKindCosts)
+            settings.cKindCosts = new App.Collections.KindCosts( {!! $kindCosts !!} )
+    })
+    </script>
+@endif
 
-    @if (isset($orders) && count($orders) )
+    <script type="text/javascript" src="js/models/m.order.js" language="javascript"></script>
+    <script type="text/javascript" src="js/collections/c.order.js" language="javascript"></script>
+@if (isset($orders) && count($orders) )
     <script>
     $(function () {
         if (!settings.cOrders)
             settings.cOrders = new App.Collections.Orders( {!! $orders !!} )
     })
     </script>
-    @endif
+@endif
 
 
 
-    <script type="text/javascript" src="js/models/m.order.js" language="javascript"></script>
-    <script type="text/javascript" src="js/collections/c.order.js" language="javascript"></script>
-    <script type="text/javascript" src="js/views/v.order.js" language="javascript"></script>
-
-    {{--<script type="text/javascript" src="js/router/r.order.js"></script>--}}
-    <script type="text/javascript" src="js/pages/p.order.js"></script>
+    <script type="text/javascript" src="js/models/m.mutualCalc.js" language="javascript"></script>
+    <script type="text/javascript" src="js/collections/c.mutualCalc.js" language="javascript"></script>
+    <script type="text/javascript" src="js/views/v.mutualCalc.js" language="javascript"></script>
 
 @stop
