@@ -56,7 +56,7 @@ App.Views.MutualCalcs = Backbone.View.extend({
     }
     ,addOne: function (model) {
         var view = new App.Views.MutualCalc({model: model});
-        this.$el.find('#MutualCalcsList').append( view.render().el );
+        this.$el.find('#mutualCalcsList').append( view.render().el );
     }
 });
 

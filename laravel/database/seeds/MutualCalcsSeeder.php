@@ -21,14 +21,21 @@ class MutualCalcsSeeder extends Seeder {
             // и здесь - https://github.com/fzaninotto/Faker/blob/master/composer.json
 
             $dateCreated = '2015-04-';
-            //$dateCreated = $faker->date($format = 'Y-m-d', $max = 'now');
-            //$dateCompleted = $faker->date($format = 'Y-m-d', $max = 'now' );
+
+            if ($i % 2 == 0) {
+                $id_buyer = $faker->numberBetween($min = 1, $max = 10);
+                $id_employee = '';
+            }
+            else {
+                $id_buyer = '';
+                $id_employee = $faker->numberBetween($min = 1, $max = 3);
+            }
 
             MutualCalc::create([
                 'date' => $dateCreated . $i,
                 'id_order' => $faker->numberBetween($min = 1, $max = 10),
-                'id_buyer' => $faker->numberBetween($min = 1, $max = 10),
-                'id_employee' => $faker->numberBetween($min = 1, $max = 3),
+                'id_buyer' => $id_buyer,
+                'id_employee' => $id_employee,
                 'id_kindcost' => $faker->numberBetween($min = 1, $max = 3),
                 'sum' => $faker->randomNumber(5),
                 'desc' => $faker->text(100),

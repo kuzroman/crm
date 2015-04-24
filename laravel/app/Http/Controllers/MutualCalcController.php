@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\Buyer;
 use App\Models\Order;
 use App\Models\KindCost;
+use App\Models\MutualCalc;
 
 class MutualCalcController extends Controller {
 
@@ -19,13 +20,15 @@ class MutualCalcController extends Controller {
 	 */
 	public function index()
     {
+        $mutualCalc = MutualCalc::getAll();
         $buyers = Buyer::all();
         $employees = Employee::all();
         $kindCosts = KindCost::all();
         $orders = Order::getAll(); // Для оптимизации лучше сделать свой метод выводящий тольк то что нужно!
-//        return $orders;
-        return view('pMutualCalc', ['employees' => $employees, 'buyers' => $buyers,
-            'orders' => $orders, 'kindCost' => $kindCosts
+
+//        return $mutualCalc;
+        return view('pMutualCalc', ['mutualCalc' => $mutualCalc, 'employees' => $employees,
+            'buyers' => $buyers, 'orders' => $orders, 'kindCost' => $kindCosts
         ]);
     }
 

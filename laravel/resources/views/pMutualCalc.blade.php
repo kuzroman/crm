@@ -4,7 +4,7 @@
 {{--  все что напишем между @section('content') и @stop попадет в @yield('content') в шаблон в который мы обращаемся --}}
 @section('content') {{-- здесь можно разместить контент --}}
 
-    <div id="mutualCalcBox"></div>
+    <div id="mutualCalcsBox"></div>
 
     <script type="text/template" id="tmplMutualCalcs">
         <thead>
@@ -23,17 +23,15 @@
         <tbody id="mutualCalcsList"></tbody>
     </script>
 
-    <script type="text/template" id="tmplmMutualCalc">
+    <script type="text/template" id="tmplMutualCalc">
         <td class=""><%=id%></td>
-        <td class=""><%=dateCreatedRus%></td>
+        <td class=""><%=orderDateCreated%></td>
+        <td class=""><%=date%></td>
+        <td class=""><%=sum%></td>
         <td class=""><%=buyerName%></td>
+        <td class=""><%=employeeName%></td>
+        <td class=""><%=kindCostName%></td>
         <td class=""><%=desc%></td>
-        <td class=""><%=placeName%></td>
-        <td class=""><% if (cash == 1) { %>нал<% } else { %>безнал<% } %></td>
-        <td class=""><%=price%></td>
-        <td class=""><% if (paid ==  1) { %>оплатил<% } else { %>нет<% } %></td>
-        <td class=""><%=dateCompletedRus%></td>
-        <td class=""><% if (finished == 1) { %>готово<% } else { %>нет<% } %></td>
         <% if (edit) { %>
             <td class="btn jEdit">Редакция</td>
         <% } %>
@@ -134,7 +132,6 @@
     </script>
 @endif
 
-
     <script type="text/javascript" src="js/models/m.employee.js" language="javascript"></script>
     <script type="text/javascript" src="js/collections/c.employee.js" language="javascript"></script>
 @if (isset($employees) && count($employees) )
@@ -170,8 +167,18 @@
 
 
 
+@if (isset($mutualCalc) && count($mutualCalc) )
+    <script>
+    $(function () {
+        if (!settings.cMutualCalcs)
+            settings.cMutualCalcs = new App.Collections.MutualCalcs( {!! $mutualCalc !!} )
+    })
+    </script>
+@endif
+
     <script type="text/javascript" src="js/models/m.mutualCalc.js" language="javascript"></script>
     <script type="text/javascript" src="js/collections/c.mutualCalc.js" language="javascript"></script>
     <script type="text/javascript" src="js/views/v.mutualCalc.js" language="javascript"></script>
+    <script type="text/javascript" src="js/pages/p.mutualCalc.js" language="javascript"></script>
 
 @stop
