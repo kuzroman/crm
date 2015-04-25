@@ -8,9 +8,6 @@ App.Views.MutualCalc = Backbone.View.extend({
         'click .jEdit': function () {
             vent.trigger('drawMutualCalcEditor', {view:this, model:this.model} );
         }
-        //,'click .jClickContName': function () {
-        //    vent.trigger('onClickContName', {view:this, model:this.model} );
-        //}
     }
     ,initialize: function () {
         this.model.on('sync', this.render, this); // сработает после измения модели на сервере

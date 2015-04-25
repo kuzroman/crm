@@ -24,7 +24,6 @@ App.Models.Order = Backbone.Model.extend({
     }
 
     ,initialize : function () {
-        log('init', 'model', 'mBuyer', this);
         var self = this;
 
         this.setDateRus();

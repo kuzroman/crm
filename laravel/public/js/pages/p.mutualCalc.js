@@ -25,7 +25,7 @@ pMutualCalc.html = {
 pMutualCalc.event = function () {
     var self = this;
 
-    vent.on('drawOrderEditor', function () {
+    vent.on('drawMutualCalcEditor', function () {
         self.drawEditor(arguments[0]['view'], arguments[0]['model']);
         //console.log(arguments[0]['view'], arguments[0]['model']);
     })
@@ -34,11 +34,11 @@ pMutualCalc.event = function () {
 pMutualCalc.drawEditor = function (view, model) {
     //console.log(arguments);
 
-    var innerModel = model ? model : new App.Models.Order;
-    var vEditor = new App.Views.OrderEditor({model: innerModel});
+    var innerModel = model ? model : new App.Models.MutualCalc;
+    var vEditor = new App.Views.MutualCalcEditor({model: innerModel});
 
-    var top = view ? view.$el.offset().top + view.$el.height() : $('.vOrders').offset().top + 29;
-    var left = view ? view.$el.offset().left : $('.vOrders').offset().left;
+    var top = view ? view.$el.offset().top + view.$el.height() : $('.vMutualCalcs').offset().top + 29;
+    var left = view ? view.$el.offset().left : $('.vMutualCalcs').offset().left;
     vEditor.$el.css({top:top, left:left});
 
     if (pMutualCalc.html.vEdit) pMutualCalc.html.vEdit.remove();

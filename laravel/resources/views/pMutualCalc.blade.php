@@ -13,8 +13,7 @@
                 <td class="">Заказ</td>
                 <td class="">Дата</td>
                 <td class="">Сумма</td>
-                <td class="">Контрагент</td>
-                <td class="">Сотрудник</td>
+                <td class="">Получатель</td>
                 <td class="">Вид затрат</td>
                 <td class="">Примечание</td>
                 <td class=" btn"><div class="jAdd">Добавить</div></td>
@@ -25,11 +24,10 @@
 
     <script type="text/template" id="tmplMutualCalc">
         <td class=""><%=id%></td>
-        <td class=""><%=orderDateCreated%></td>
-        <td class=""><%=date%></td>
+        <td class=""><%=orderDateCreatedRus%></td>
+        <td class=""><%=dateRus%></td>
         <td class=""><%=sum%></td>
-        <td class=""><%=buyerName%></td>
-        <td class=""><%=employeeName%></td>
+        <td class=""><%=recipient%></td>
         <td class=""><%=kindCostName%></td>
         <td class=""><%=desc%></td>
         <% if (edit) { %>
@@ -43,71 +41,85 @@
 
         <table>
             <tr>
-                <td class="pr9">Дата начала</td>
-                <td><input type="ui_date" name="dateCreatedRus" value="<%=dateCreatedRus%>"/></td>
-            </tr>
-            <tr>
-                <td>Покупатель</td>
+                <td class="pr9">Заказ</td>
                 <td>
+                    <select name="id_order">
+                        <% _.each(settings.cOrders, function(x,index) {
+                                var model = settings.cOrders.at(index)
+                                    ,date = model.get('dateCreatedRus')
+                                    ,name = model.get('buyerName')
+                                    ,id = model.get('id');
 
+                                var selected = (id_order == id) ? 'selected' : '';
+                        %>
+                         <option <%=selected%> value="<%=id%>"><%=date%> - <%=name%></option>
+                        <% }); %>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <td>Описание</td>
+                <td>Дата</td>
+                <td><input type="ui_date" name="dateRus" value="<%=dateRus%>"/></td>
+            </tr>
+            <tr>
+                <td>Сумма</td>
+                <td><input name="sum" value="<%=sum%>"></td>
+            </tr>
+            <tr>
+                <td class="pr9">Получатель</td>
+                <td>
+                    <select name="id_order">
+                        <% _.each(settings.cBuyers, function(x,index) {
+                                var model = settings.cBuyers.at(index)
+                                    ,name = model.get('name')
+                                    ,id = model.get('id');
+
+                                var selected = (id_order == id) ? 'selected' : '';
+                        %>
+                         <option <%=selected%> value="<%=id%>"><%=name%></option>
+                        <% }); %>
+                    </select>
+
+                    <select name="id_order">
+                        <% _.each(settings.cEmployees, function(x,index) {
+                                var model = settings.cEmployees.at(index)
+                                    ,name = model.get('name')
+                                    ,id = model.get('id');
+
+                                var selected = (id_order == id) ? 'selected' : '';
+                        %>
+                         <option <%=selected%> value="<%=id%>"><%=name%></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="pr9">Вид затрат</td>
+                <td>
+                    <select name="id_order">
+                        <% _.each(settings.cKindCosts, function(x,index) {
+                                var model = settings.cKindCosts.at(index)
+                                    ,name = model.get('name')
+                                    ,id = model.get('id');
+
+                                var selected = (id_order == id) ? 'selected' : '';
+                        %>
+                         <option <%=selected%> value="<%=id%>"><%=name%></option>
+                        <% }); %>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Примечание</td>
                 <td><textarea name="desc"><%=desc%></textarea></td>
             </tr>
-            <tr>
-                <td>Участок</td>
-                <td>
 
-                </td>
-            </tr>
-            <tr>
-                <td>Безнал</td>
-                <td>
-                    <label>
-                        <input type="radio" name="cash" value="0" <% if (cash == 0) { %> checked <% } %> />б.нал
-                    </label>
-                    <label>
-                        <input type="radio" name="cash" value="1" <% if (cash == 1) { %> checked <% } %> />нал
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>Цена</td>
-                <td><input name="price" value="<%=price%>"></td>
-            </tr>
-            <tr>
-                <td>Оплачено</td>
-                <td>
-                    <label>
-                        <input type="radio" name="paid" value="0" <% if (paid == 0) { %> checked <% } %> />Нет
-                    </label>
-                    <label>
-                        <input type="radio" name="paid" value="1" <% if (paid == 1) { %> checked <% } %> />Оплачено
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>Дата сдачи</td>
-                <td><input type="ui_date" name="dateCompletedRus" value="<%=dateCompletedRus%>"></td>
-            </tr>
-            <tr>
-                <td>Готово</td>
-                <td>
-                    <label>
-                        <input type="radio" name="finished" value="0" <% if (finished == 0) { %> checked <% } %> />Нет
-                    </label>
-                    <label>
-                        <input type="radio" name="finished" value="1" <% if (finished == 1) { %> checked <% } %> />Готово
-                    </label>
-                {{--<input name="finished" value="<%=finished%>">--}}
-                </td>
-            </tr>
+
             <tr>
                 <td></td>
                 <td class="pt9">
-                 <%  if (price == '') { %>
+                 <%  if (sum == '') { %>
                     <button class="jAdd">Добавить</button>
                 <% } else { %>
                     <button class="jChange mr18">Изменить</button>

@@ -5,13 +5,23 @@ App.Models.MutualCalc = Backbone.Model.extend({
     ,defaults: {
         //id: '', // backbone, видя айдишник автоматически добавляет его в урл и меняет запрос на put (вместо post)
         // при вызове метода save. Id должен добавляться SQL автоматически.
-        date: Date.create(new Date(), 'ru').format('{yyyy}-{MM}-{dd}')
+        id_order: ''
+        // дата фактического поступления/списания средств
+        ,date: Date.create(new Date(), 'ru').format('{yyyy}-{MM}-{dd}')
         ,dateRus: ''
         ,sum: ''
-        ,id_order: ''
+        ,desc: ''
+
+        ,recipient: ''
         ,id_buyer: ''
         ,id_employee: ''
-        ,id_kindCost: ''
+        ,id_kindcost: ''
+
+        ,orderDateCreated: ''
+        ,orderDateCreatedRus: ''
+        ,buyerName: ''
+        ,employeeName: ''
+        ,kindCostName: ''
 
         ,edit: true // если тру появится кнопка редактировать
         ,_token: hp.getToken()
@@ -21,18 +31,22 @@ App.Models.MutualCalc = Backbone.Model.extend({
         var self = this;
 
         this.setDateRus();
+        this.setRecipient();
 
         this.on('change:id_buyer', this.setBuyerName, this);
-        this.on('change:id_place', this.setPlaceName, this);
         this.on('change:dateRus', this.setDateForBackend, this);
 
         this.on('error', this.onError, this);
         this.on('invalid', this.onInvalid, this);
     }
 
-    //,onChangeModel: function () {
-    //    console.log('onChangeModel', this);
-    //}
+
+    ,setRecipient: function () {
+        var buyerName = this.get('buyerName')
+            ,employeeName = this.get('employeeName')
+        ;
+        this.set('recipient', buyerName || employeeName || '');
+    }
 
     ,setBuyerName: function () {
         var id = this.get('id_buyer')
@@ -51,10 +65,12 @@ App.Models.MutualCalc = Backbone.Model.extend({
     ,setDateRus: function () {
         var format = '{dd}.{MM}.{yyyy}';
         this.set('dateRus', Date.create(this.get('date')).format(format));
+        this.set('orderDateCreatedRus', Date.create(this.get('orderDateCreated')).format(format));
     }
     ,setDateForBackend: function () {
         var format = '{yyyy}-{MM}-{dd}';
         this.set('date', Date.create(this.get('dateRus'), 'ru').format(format));
+        this.set('orderDateCreated', Date.create(this.get('orderDateCreatedRus'), 'ru').format(format));
     }
 
     ,validate: function (attrs, options) {

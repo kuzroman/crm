@@ -49,7 +49,7 @@ php artisan make:controller PhotoController - создать контролле�
 php artisan make:model User - создать модель
 
 Если по какой-то причине нужно отменить последнюю миграцию, выполняем
-php artisan migrate:rollback.
+php artisan migrate:rollback
 откатить и накатить вновь - php artisan migrate:refresh --seed
 отменить миграции - migrate:reset
 

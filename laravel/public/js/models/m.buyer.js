@@ -19,7 +19,6 @@ App.Models.Buyer = Backbone.Model.extend({
     }
 
     ,initialize : function () {
-        log('init', 'model', 'mBuyer', this);
         var self = this;
         //this.on('invalid', function (model, error) {console.log(error);});
         //this.on('sync', this.onModelAll, this);

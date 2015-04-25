@@ -28,7 +28,7 @@ class MutualCalcController extends Controller {
 
 //        return $mutualCalc;
         return view('pMutualCalc', ['mutualCalc' => $mutualCalc, 'employees' => $employees,
-            'buyers' => $buyers, 'orders' => $orders, 'kindCost' => $kindCosts
+            'buyers' => $buyers, 'orders' => $orders, 'kindCosts' => $kindCosts
         ]);
     }
 
