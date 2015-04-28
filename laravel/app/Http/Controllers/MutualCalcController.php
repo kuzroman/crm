@@ -26,7 +26,7 @@ class MutualCalcController extends Controller {
         $kindCosts = KindCost::all();
         $orders = Order::getAll(); // Для оптимизации лучше сделать свой метод выводящий тольк то что нужно!
 
-//        return $mutualCalc;
+        // return $mutualCalc;
         return view('pMutualCalc', ['mutualCalc' => $mutualCalc, 'employees' => $employees,
             'buyers' => $buyers, 'orders' => $orders, 'kindCosts' => $kindCosts
         ]);
