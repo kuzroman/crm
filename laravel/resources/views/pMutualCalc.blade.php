@@ -27,7 +27,7 @@
         <td class=""><%=orderDateCreatedRus%></td>
         <td class=""><%=dateRus%></td>
         <td class=""><%=sum%></td>
-        <td class=""><%=recipient%></td>
+        <td class=""><%=recipientName%></td>
         <td class=""><%=kindCostName%></td>
         <td class=""><%=desc%></td>
         <% if (edit) { %>
@@ -68,25 +68,29 @@
             <tr>
                 <td class="pr9">Получатель</td>
                 <td>
-                    <select name="id_order">
+                    <span>Покупатель:</span>
+                    <select name="id_buyer" class="jChangeRecipient jEditIdBuyer">
+                        <option value=""></option>
                         <% _.each(settings.cBuyers, function(x,index) {
                                 var model = settings.cBuyers.at(index)
                                     ,name = model.get('name')
                                     ,id = model.get('id');
 
-                                var selected = (id_order == id) ? 'selected' : '';
+                                var selected = (id_buyer == id) ? 'selected' : '';
                         %>
                          <option <%=selected%> value="<%=id%>"><%=name%></option>
                         <% }); %>
                     </select>
 
-                    <select name="id_order">
+                    <span>или Сотрудник:</span>
+                    <select name="id_employee" class="jChangeRecipient jEditIdEmployee">
+                        <option value=""></option>
                         <% _.each(settings.cEmployees, function(x,index) {
                                 var model = settings.cEmployees.at(index)
                                     ,name = model.get('name')
                                     ,id = model.get('id');
 
-                                var selected = (id_order == id) ? 'selected' : '';
+                                var selected = (id_employee == id) ? 'selected' : '';
                         %>
                          <option <%=selected%> value="<%=id%>"><%=name%></option>
                         <% }); %>
@@ -96,13 +100,13 @@
             <tr>
                 <td class="pr9">Вид затрат</td>
                 <td>
-                    <select name="id_order">
+                    <select name="id_kindcost">
                         <% _.each(settings.cKindCosts, function(x,index) {
                                 var model = settings.cKindCosts.at(index)
                                     ,name = model.get('name')
                                     ,id = model.get('id');
 
-                                var selected = (id_order == id) ? 'selected' : '';
+                                var selected = (id_kindcost == id) ? 'selected' : '';
                         %>
                          <option <%=selected%> value="<%=id%>"><%=name%></option>
                         <% }); %>

@@ -80,10 +80,22 @@ class MutualCalcController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-		//
-	}
+    public function update(Request $request, $id)
+    {
+        $model = MutualCalc::find($id);
+
+        $model->date = $request->input('date');
+        $model->id_order = $request->input('id_order');
+        $model->id_buyer = $request->input('id_buyer');
+        $model->id_employee = $request->input('id_employee');
+        $model->id_kindcost = $request->input('id_kindcost');
+        $model->sum = $request->input('sum');
+        $model->desc = $request->input('desc');
+
+        $model->save();
+
+        return json_encode($model);
+    }
 
 	/**
 	 * Remove the specified resource from storage.
