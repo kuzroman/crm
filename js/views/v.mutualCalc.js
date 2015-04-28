@@ -61,12 +61,13 @@ App.Views.MutualCalcEditor = Backbone.View.extend({
     tagName: 'form'
     ,className: 'vMutualCalcEditor editor'
     ,template: hp.tmpl('tmplMutualCalcEdit')
-
     ,events: {
         'click .jClose': 'clickClose',
         'click .jAdd': 'clickAdd',
         'click .jChange': 'clickChange',
-        'click .jDel': 'clickDel'
+        'click .jDel': 'clickDel',
+
+        'change .jChangeRecipient': 'changeRecipient'
     }
 
     ,initialize: function () {
@@ -125,4 +126,15 @@ App.Views.MutualCalcEditor = Backbone.View.extend({
         });
         return false;
     }
+    
+    ,changeRecipient: function (event) {
+        var buyer = this.$el.find('.jEditIdBuyer')
+            ,employee = this.$el.find('.jEditIdEmployee')
+        ;
+
+        if ($(event.target).hasClass('jEditIdBuyer') ) employee.val('');
+        else buyer.val('');
+    }
+
+
 });

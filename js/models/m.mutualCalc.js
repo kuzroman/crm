@@ -12,7 +12,6 @@ App.Models.MutualCalc = Backbone.Model.extend({
         ,sum: ''
         ,desc: ''
 
-        ,recipient: ''
         ,id_buyer: ''
         ,id_employee: ''
         ,id_kindcost: ''
@@ -22,6 +21,7 @@ App.Models.MutualCalc = Backbone.Model.extend({
         ,buyerName: ''
         ,employeeName: ''
         ,kindCostName: ''
+        ,recipientName: ''
 
         ,edit: true // если тру появится кнопка редактировать
         ,_token: hp.getToken()
@@ -32,34 +32,49 @@ App.Models.MutualCalc = Backbone.Model.extend({
 
         this.setDateRus();
         this.setRecipient();
+        this.setKindCostName();
 
-        this.on('change:id_buyer', this.setBuyerName, this);
         this.on('change:dateRus', this.setDateForBackend, this);
+        this.on('change:id_kindcost', this.setKindCostName, this);
+
+        this.on('change:id_buyer', this.setRecipient, this);
+        this.on('change:id_employee', this.setRecipient, this);
 
         this.on('error', this.onError, this);
         this.on('invalid', this.onInvalid, this);
     }
 
+    ,setKindCostName: function () {
+        var id = this.get('id_kindcost')
+            ,model = settings.cKindCosts.get(id)
+            ,field = model.get('name');
+        this.set('kindCostName', field);
+    }
+
+    ,setDateRecipient: function (p1, id, obj) {
+        //console.log(id);
+        //var model = settings.cBuyers.get(id)
+        //    ,field = model.get('name');
+        //this.set('recipientName', field);
+    }
 
     ,setRecipient: function () {
-        var buyerName = this.get('buyerName')
-            ,employeeName = this.get('employeeName')
-        ;
-        this.set('recipient', buyerName || employeeName || '');
-    }
-
-    ,setBuyerName: function () {
-        var id = this.get('id_buyer')
+        if ( this.get('id_buyer') ) {
+            var id = this.get('id_buyer')
             ,model = settings.cBuyers.get(id)
             ,field = model.get('name');
-        this.set('buyerName', field);
-    }
+        }
+        else if ( this.get('id_employee') ) {
+            id = this.get('id_employee');
+            model = settings.cEmployees.get(id);
+            field = model.get('name');
+        }
+        this.set('recipientName', field);
 
-    ,setPlaceName: function () {
-        var id = this.get('id_place')
-            ,model = settings.cPlaces.get(id)
-            ,field = model.get('name');
-        this.set('placeName', field);
+        //var buyerName = this.get('buyerName')
+        //    ,employeeName = this.get('employeeName')
+        //;
+        //this.set('recipientName', (buyerName || employeeName || '') );
     }
 
     ,setDateRus: function () {
@@ -70,12 +85,12 @@ App.Models.MutualCalc = Backbone.Model.extend({
     ,setDateForBackend: function () {
         var format = '{yyyy}-{MM}-{dd}';
         this.set('date', Date.create(this.get('dateRus'), 'ru').format(format));
-        this.set('orderDateCreated', Date.create(this.get('orderDateCreatedRus'), 'ru').format(format));
+        //this.set('orderDateCreated', Date.create(this.get('orderDateCreatedRus'), 'ru').format(format));
     }
 
     ,validate: function (attrs, options) {
-        if (!$.trim(attrs.price) ) {
-            return "Укажите цену работы";
+        if (!$.trim(attrs.sum) ) {
+            return "Укажите сумму";
         }
     }
 

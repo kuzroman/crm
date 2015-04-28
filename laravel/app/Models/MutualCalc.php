@@ -15,15 +15,21 @@ class MutualCalc extends Model {
         $model = DB::select('
           SELECT mc.*
           ,o.dateCreated AS orderDateCreated
-          ,b.name AS buyerName
-          ,e.name AS employeeName
-          ,k.name AS kindCostName
           FROM mutual_calcs mc
           INNER JOIN orders o ON mc.id_order = o.id
-          LEFT JOIN buyers b ON mc.id_buyer = b.id
-          LEFT JOIN employees e ON mc.id_employee = e.id
-          INNER JOIN kind_costs k ON mc.id_kindcost = k.id
           ORDER BY id');
+
+//        SELECT mc.*
+//          ,o.dateCreated AS orderDateCreated
+//          ,b.name AS buyerName
+//          ,e.name AS employeeName
+//          ,k.name AS kindCostName
+//          FROM mutual_calcs mc
+//          INNER JOIN orders o ON mc.id_order = o.id
+//          LEFT JOIN buyers b ON mc.id_buyer = b.id
+//          LEFT JOIN employees e ON mc.id_employee = e.id
+//          INNER JOIN kind_costs k ON mc.id_kindcost = k.id
+//          ORDER BY id');
 
         return json_encode($model);
     }
